@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>You're Invited!</title>
+  <title>Friendsgiving "Board" Potluck</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -12,58 +12,122 @@
 </head>
 <body class="bg-stone-100 text-stone-800 min-h-screen flex flex-col justify-between">
 
-  <!-- Hero Section -->
-  <header class="max-w-xl mx-auto w-full pt-12 pb-6 px-6 text-center">
-    <div class="inline-block bg-stone-200 text-stone-700 text-xs tracking-widest uppercase font-semibold px-3 py-1 rounded-full mb-4">
-      Celebration
+  <!-- Hero Header -->
+  <header class="max-w-xl mx-auto w-full pt-10 pb-6 px-6 text-center">
+    <div class="inline-flex items-center space-x-2 bg-amber-100 text-amber-900 text-xs font-bold tracking-widest uppercase px-3.5 py-1.5 rounded-full mb-4 border border-amber-200">
+      <span>NOV 21, 2026</span>
     </div>
-    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-stone-900 mb-3">
-      Let's Party!
+    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900 mb-2">
+      Friendsgiving "Board" Potluck
     </h1>
-    <p class="text-lg text-stone-600 font-light">
-      Join us for an evening of food, drinks, and great company.
+    <p class="text-base text-stone-600 font-medium">
+      Hosted by <span class="text-stone-900 font-semibold">Nick + Kelsey</span>
     </p>
   </header>
 
-  <!-- Event Details Card -->
-  <main class="max-w-xl mx-auto w-full px-4 flex-grow">
-    <div class="bg-white rounded-2xl shadow-sm border border-stone-200/80 p-6 sm:p-8 mb-6 space-y-6">
+  <main class="max-w-xl mx-auto w-full px-4 flex-grow space-y-6 mb-12">
+    
+    <!-- Event Details Card -->
+    <div class="bg-white rounded-2xl shadow-sm border border-stone-200/80 p-6 sm:p-8 space-y-6">
       
+      <!-- Date & Time -->
       <div class="flex items-start space-x-4">
-        <div class="bg-stone-100 p-3 rounded-xl text-stone-700">
+        <div class="bg-stone-100 p-3 rounded-xl text-stone-700 shrink-0">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
         </div>
         <div>
-          <h2 class="text-sm font-semibold uppercase text-stone-400 tracking-wider">When</h2>
-          <p class="text-base font-medium text-stone-800">Saturday, November 14, 2026</p>
-          <p class="text-sm text-stone-500">6:00 PM CST</p>
+          <h2 class="text-xs font-semibold uppercase text-stone-400 tracking-wider">When</h2>
+          <p class="text-base font-semibold text-stone-800">Saturday, November 21, 2026</p>
+          <p class="text-sm text-stone-500">Starts at 4:00 PM CST (Food served at 5:00 PM)</p>
         </div>
       </div>
 
+      <!-- Location (Hyperlinked Address) -->
       <div class="border-t border-stone-100 pt-4 flex items-start space-x-4">
-        <div class="bg-stone-100 p-3 rounded-xl text-stone-700">
+        <div class="bg-stone-100 p-3 rounded-xl text-stone-700 shrink-0">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
         </div>
         <div>
-          <h2 class="text-sm font-semibold uppercase text-stone-400 tracking-wider">Where</h2>
-          <p class="text-base font-medium text-stone-800">123 Event Venue Way</p>
-          <p class="text-sm text-stone-500 mb-2">Chicago, IL 60601</p>
-          <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-amber-700 hover:text-amber-800 underline">Open in Google Maps &rarr;</a>
+          <h2 class="text-xs font-semibold uppercase text-stone-400 tracking-wider">Where</h2>
+          <a href="https://maps.google.com/?q=4034+Pompton+Ct,+Elgin,+IL+60124" target="_blank" rel="noopener noreferrer" class="group block">
+            <p class="text-base font-semibold text-stone-800 group-hover:text-amber-800 transition-colors">4034 Pompton Ct</p>
+            <p class="text-sm text-stone-500 group-hover:text-amber-800 transition-colors mb-2">Elgin, IL 60124</p>
+            <span class="text-xs font-semibold text-amber-700 hover:text-amber-800 underline inline-flex items-center">
+              Open in Google Maps &rarr;
+            </span>
+          </a>
         </div>
       </div>
 
-      <!-- Add to Calendar Action -->
+      <!-- Add to Calendar Link -->
       <div class="border-t border-stone-100 pt-4">
         <a id="calLink" href="#" target="_blank" class="w-full inline-flex justify-center items-center py-2.5 px-4 border border-stone-300 rounded-xl text-xs font-semibold text-stone-700 bg-stone-50 hover:bg-stone-100 transition-colors">
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
           Add to Google Calendar
         </a>
       </div>
 
     </div>
 
-    <!-- RSVP Form Card -->
-    <div class="bg-white rounded-2xl shadow-sm border border-stone-200/80 p-6 sm:p-8 mb-12">
+    <!-- Event Info & Guidelines -->
+    <div class="bg-white rounded-2xl shadow-sm border border-stone-200/80 p-6 sm:p-8 space-y-6">
+      
+      <div>
+        <h3 class="text-lg font-bold text-stone-900 mb-2">Please RSVP by Friday, Nov 13th</h3>
+        <p class="text-sm text-stone-600 leading-relaxed">
+          We can’t wait to enjoy a day filled with good food, great company, and lots of gratitude. Looking forward to celebrating together!
+        </p>
+      </div>
+
+      <hr class="border-stone-100">
+
+      <div>
+        <h3 class="text-lg font-bold text-stone-900 mb-2">What is a "Board" Potluck?</h3>
+        <p class="text-sm text-stone-600 leading-relaxed mb-3">
+          Similar to a standard potluck, everyone brings a dish to share. The twist is that instead of a single dish, each guest brings a themed food board. Charcuterie boards are the classic choice, but get creative! Think a s'mores-gasboard, a harvest veggie board, or a leftovers board.
+        </p>
+        <p class="text-sm text-stone-600 leading-relaxed">
+          These do not have to be Thanksgiving themed! If you are running short on ideas, text Nick or Kelsey and we can help you brainstorm.
+        </p>
+      </div>
+
+      <hr class="border-stone-100">
+
+      <div>
+        <h3 class="text-lg font-bold text-stone-900 mb-2">Drinks</h3>
+        <p class="text-sm text-stone-600 leading-relaxed">
+          We'll have a signature cocktail, hard seltzers, and bourbon to share. There will be some nonalcoholic beverages/soda as well, but otherwise bring what you'd like to drink.
+        </p>
+      </div>
+
+      <hr class="border-stone-100">
+
+      <div>
+        <h3 class="text-lg font-bold text-stone-900 mb-3">Day-Of Info</h3>
+        <div class="space-y-3 text-sm text-stone-600">
+          <div>
+            <span class="font-bold text-stone-800">Timing:</span>
+            <p class="inline">5:00 PM is when we're aiming to have everyone's board set up and ready to be served.</p>
+          </div>
+          <div>
+            <span class="font-bold text-stone-800">Parking:</span>
+            <ul class="list-disc list-inside mt-1 space-y-1 pl-1">
+              <li><strong>Driveway:</strong> 2 spots (first come, first serve).</li>
+              <li><strong>Guest spots:</strong> Available in the cul-de-sac.</li>
+              <li><strong>Overflow:</strong> Park on Pompton Ave (instead of Pompton Ct).</li>
+            </ul>
+          </div>
+          <div>
+            <span class="font-bold text-stone-800">Finding us:</span>
+            <p class="inline">Look for the house with the green light! If the garage is open, feel free to come in that way. Otherwise, head to the front door.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RSVP Form -->
+    <div class="bg-white rounded-2xl shadow-sm border border-stone-200/80 p-6 sm:p-8">
       <h2 class="text-xl font-bold text-stone-900 mb-6 text-center">RSVP</h2>
       
       <form id="rsvpForm" class="space-y-5">
@@ -87,13 +151,13 @@
         </div>
 
         <div>
-          <label for="plusOnes" class="block text-xs font-semibold uppercase text-stone-500 mb-1">Additional Guests (Plus Ones)</label>
-          <input type="number" id="plusOnes" name="plusOnes" min="0" max="5" value="0" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-stone-800 focus:outline-none text-sm">
+          <label for="plusOnes" class="block text-xs font-semibold uppercase text-stone-500 mb-1">Plus One / Guest Name(s)</label>
+          <input type="text" id="plusOnes" name="plusOnes" placeholder="e.g. Kelsey, or 1 guest" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-stone-800 focus:outline-none text-sm">
         </div>
 
         <div>
-          <label for="dietary" class="block text-xs font-semibold uppercase text-stone-500 mb-1">Dietary Restrictions or Notes</label>
-          <textarea id="dietary" name="dietary" rows="2" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-stone-800 focus:outline-none text-sm" placeholder="Allergies, preferences, etc."></textarea>
+          <label for="boardIdea" class="block text-xs font-semibold uppercase text-stone-500 mb-1">Board Idea / Dish bringing</label>
+          <input type="text" id="boardIdea" name="boardIdea" placeholder="e.g. Dessert board, S'mores board, Charcuterie" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-stone-800 focus:outline-none text-sm">
         </div>
 
         <div>
@@ -106,36 +170,35 @@
         </button>
       </form>
 
-      <!-- Status Message Display -->
       <div id="statusMsg" class="hidden mt-4 p-4 rounded-xl text-center text-sm font-medium"></div>
     </div>
+
   </main>
 
   <footer class="py-6 text-center text-xs text-stone-400">
-    Hosted with care
+    Friendsgiving 2026 • Nick + Kelsey
   </footer>
 
   <script>
-    // 1. CONFIGURATION: Paste your deployed Google Apps Script Web App URL below
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8cRvnrCjoQ1cp8Ug15_VepaMDwE4bkQAHo8atxubo1GaUvvkD0PpwYLslTKY76LDmsA/exec';
+    // Paste your Google Apps Script Web App URL below
+    const APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
 
-    // 2. URL Parameter Pre-fill handling
     window.addEventListener('DOMContentLoaded', () => {
+      // Parse URL parameters for guest name pre-fill (?guest=Name)
       const urlParams = new URLSearchParams(window.location.search);
       const guestName = urlParams.get('guest');
       if (guestName) {
         document.getElementById('name').value = decodeURIComponent(guestName);
       }
 
-      // Generate Google Calendar Link
-      const title = encodeURIComponent("Party Celebration");
-      const details = encodeURIComponent("Looking forward to seeing you!");
-      const location = encodeURIComponent("123 Event Venue Way, Chicago, IL 60601");
-      const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261115T000000Z/20261115T040000Z&details=${details}&location=${location}`;
+      // Generate Google Calendar Link for Nov 21, 2026 (4:00 PM - 10:00 PM CST)
+      const title = encodeURIComponent("Friendsgiving \"Board\" Potluck");
+      const details = encodeURIComponent("Bring a themed board to share! Hosted by Nick + Kelsey.");
+      const location = encodeURIComponent("4034 Pompton Ct, Elgin, IL 60124");
+      const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261121T220000Z/20261122T040000Z&details=${details}&location=${location}`;
       document.getElementById('calLink').href = calUrl;
     });
 
-    // 3. Form Submission Handling
     const form = document.getElementById('rsvpForm');
     const submitBtn = document.getElementById('submitBtn');
     const statusMsg = document.getElementById('statusMsg');
@@ -151,7 +214,7 @@
         name: document.getElementById('name').value,
         attending: form.elements['attending'].value,
         plusOnes: document.getElementById('plusOnes').value,
-        dietary: document.getElementById('dietary').value,
+        dietary: document.getElementById('boardIdea').value,
         contactInfo: document.getElementById('contactInfo').value
       };
 
