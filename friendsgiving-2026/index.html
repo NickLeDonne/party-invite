@@ -110,7 +110,7 @@
       </div>
     </div>
 
-    <!-- RSVP Form with Autocomplete -->
+    <!-- RSVP Form -->
     <div class="bg-white rounded-2xl shadow-sm border border-stone-200/80 p-6 sm:p-8">
       <h2 class="text-xl font-bold text-stone-900 mb-6 text-center">RSVP</h2>
       <form id="rsvpForm" class="space-y-5">
@@ -135,18 +135,13 @@
         </div>
 
         <div>
-          <label for="plusOnes" class="block text-xs font-semibold uppercase text-stone-500 mb-1">Plus One / Guest Name(s)</label>
-          <input type="text" id="plusOnes" name="plusOnes" placeholder="e.g. Kelsey, or 1 guest" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-stone-800 focus:outline-none text-sm">
-        </div>
-
-        <div>
-          <label for="boardIdea" class="block text-xs font-semibold uppercase text-stone-500 mb-1">Board Idea / Dish bringing</label>
+          <label for="boardIdea" class="block text-xs font-semibold uppercase text-stone-500 mb-1">Board Idea / Dish Bringing</label>
           <input type="text" id="boardIdea" name="boardIdea" placeholder="e.g. Dessert board, S'mores board, Charcuterie" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-stone-800 focus:outline-none text-sm">
         </div>
 
         <div>
-          <label for="contactInfo" class="block text-xs font-semibold uppercase text-stone-500 mb-1">Email or Phone Number *</label>
-          <input type="text" id="contactInfo" name="contactInfo" required class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-stone-800 focus:outline-none text-sm">
+          <label for="notes" class="block text-xs font-semibold uppercase text-stone-500 mb-1">Optional Note</label>
+          <textarea id="notes" name="notes" rows="2" placeholder="Any dietary restrictions, questions, or notes for hosts..." class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-stone-800 focus:outline-none text-sm"></textarea>
         </div>
 
         <button type="submit" id="submitBtn" class="w-full py-3.5 px-4 bg-stone-900 hover:bg-stone-800 text-white font-semibold rounded-xl text-sm transition-colors shadow-sm">
@@ -248,7 +243,6 @@
             </div>
             <div>
               <p class="text-sm font-semibold text-stone-800">${g.name}</p>
-              ${g.plusOnes ? `<p class="text-xs text-stone-500">+ ${g.plusOnes}</p>` : ''}
             </div>
           </div>
           <span class="text-xs font-medium px-2.5 py-1 rounded-full ${
@@ -305,9 +299,8 @@
         tabName: getEventTabName(),
         name: document.getElementById('name').value,
         attending: form.elements['attending'].value,
-        plusOnes: document.getElementById('plusOnes').value,
-        dietary: document.getElementById('boardIdea').value,
-        contactInfo: document.getElementById('contactInfo').value
+        boardIdea: document.getElementById('boardIdea').value,
+        notes: document.getElementById('notes').value
       };
 
       try {
