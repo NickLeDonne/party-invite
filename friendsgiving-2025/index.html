@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Friendsgiving "Board" Potluck</title>
+  <title>Friendsgiving "Board" Potluck (2025)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -15,7 +15,7 @@
   <!-- Hero Header -->
   <header class="max-w-xl mx-auto w-full pt-10 pb-6 px-6 text-center">
     <div class="inline-flex items-center space-x-2 bg-amber-100 text-amber-900 text-xs font-bold tracking-widest uppercase px-3.5 py-1.5 rounded-full mb-4 border border-amber-200">
-      <span>NOV 21, 2026</span>
+      <span>NOV 29, 2025</span>
     </div>
     <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900 mb-2">
       Friendsgiving "Board" Potluck
@@ -37,7 +37,7 @@
         </div>
         <div>
           <h2 class="text-xs font-semibold uppercase text-stone-400 tracking-wider">When</h2>
-          <p class="text-base font-semibold text-stone-800">Saturday, November 21, 2026</p>
+          <p class="text-base font-semibold text-stone-800">Saturday, November 29, 2025</p>
           <p class="text-sm text-stone-500">Starts at 4:00 PM CST (Food served at 5:00 PM)</p>
         </div>
       </div>
@@ -70,7 +70,7 @@
     <div class="bg-white rounded-2xl shadow-sm border border-stone-200/80 p-6 sm:p-8 space-y-6">
       
       <div>
-        <h3 class="text-lg font-bold text-stone-900 mb-2">Please RSVP by end of day Monday, Nov 16th</h3>
+        <h3 class="text-lg font-bold text-stone-900 mb-2">Please RSVP by Friday, Nov 21st, 2025</h3>
         <p class="text-sm text-stone-600 leading-relaxed">
           We can’t wait to enjoy a day filled with good food, great company, and lots of gratitude. Looking forward to celebrating together!
         </p>
@@ -173,12 +173,21 @@
   </main>
 
   <footer class="py-6 text-center text-xs text-stone-400">
-    Friendsgiving 2026 • Nick + Kelsey
+    Friendsgiving 2025 • Nick + Kelsey
   </footer>
 
   <script>
-    // Paste your Google Apps Script Web App URL below
-    const APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+    // Google Apps Script Web App Endpoint
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyD79vxYYK0xlqWJuWh7lAkPyPiWua_8T3GEmSnN4rUQ9KX56215VKZiDt3OhL_XXJ1IQ/exec';
+
+    // Helper: Extracts current folder name from URL path (returns 'friendsgiving-2025')
+    function getEventTabName() {
+      const pathSegments = window.location.pathname.split('/').filter(Boolean);
+      if (pathSegments.length > 1) {
+        return pathSegments[pathSegments.length - 1];
+      }
+      return 'friendsgiving-2025'; // Fallback tab name if tested locally
+    }
 
     window.addEventListener('DOMContentLoaded', () => {
       // Parse URL parameters for guest name pre-fill (?guest=Name)
@@ -188,11 +197,11 @@
         document.getElementById('name').value = decodeURIComponent(guestName);
       }
 
-      // Generate Google Calendar Link for Nov 21, 2026 (4:00 PM - 10:00 PM CST)
+      // Generate Google Calendar Link for Nov 29, 2025 (4:00 PM - 10:00 PM CST)
       const title = encodeURIComponent("Friendsgiving \"Board\" Potluck");
       const details = encodeURIComponent("Bring a themed board to share! Hosted by Nick + Kelsey.");
       const location = encodeURIComponent("4034 Pompton Ct, Elgin, IL 60124");
-      const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261121T220000Z/20261122T040000Z&details=${details}&location=${location}`;
+      const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20251129T220000Z/20251130T040000Z&details=${details}&location=${location}`;
       document.getElementById('calLink').href = calUrl;
     });
 
@@ -208,6 +217,7 @@
       statusMsg.classList.add('hidden');
 
       const formData = {
+        tabName: getEventTabName(), // Evaluates to 'friendsgiving-2025'
         name: document.getElementById('name').value,
         attending: form.elements['attending'].value,
         plusOnes: document.getElementById('plusOnes').value,
