@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Friendsgiving "Board" Potluck</title>
+  <title>Friendsgiving "Board" Potluck (2026)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -29,8 +29,6 @@
     
     <!-- Event Details Card -->
     <div class="bg-white rounded-2xl shadow-sm border border-stone-200/80 p-6 sm:p-8 space-y-6">
-      
-      <!-- Date & Time -->
       <div class="flex items-start space-x-4">
         <div class="bg-stone-100 p-3 rounded-xl text-stone-700 shrink-0">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -42,7 +40,6 @@
         </div>
       </div>
 
-      <!-- Location (Hyperlinked Address) -->
       <div class="border-t border-stone-100 pt-4 flex items-start space-x-4">
         <div class="bg-stone-100 p-3 rounded-xl text-stone-700 shrink-0">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
@@ -56,28 +53,23 @@
         </div>
       </div>
 
-      <!-- Add to Calendar Link -->
       <div class="border-t border-stone-100 pt-4">
         <a id="calLink" href="#" target="_blank" class="w-full inline-flex justify-center items-center py-2.5 px-4 border border-stone-300 rounded-xl text-xs font-semibold text-stone-700 bg-stone-50 hover:bg-stone-100 transition-colors">
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
           Add to Google Calendar
         </a>
       </div>
-
     </div>
 
-    <!-- Event Info & Guidelines -->
+    <!-- Event Guidelines -->
     <div class="bg-white rounded-2xl shadow-sm border border-stone-200/80 p-6 sm:p-8 space-y-6">
-      
       <div>
         <h3 class="text-lg font-bold text-stone-900 mb-2">Please RSVP by end of day Monday, Nov 16th</h3>
         <p class="text-sm text-stone-600 leading-relaxed">
           We can’t wait to enjoy a day filled with good food, great company, and lots of gratitude. Looking forward to celebrating together!
         </p>
       </div>
-
       <hr class="border-stone-100">
-
       <div>
         <h3 class="text-lg font-bold text-stone-900 mb-2">What is a "Board" Potluck?</h3>
         <p class="text-sm text-stone-600 leading-relaxed mb-3">
@@ -87,18 +79,14 @@
           These do not have to be Thanksgiving themed! If you are running short on ideas, text Nick or Kelsey and we can help you brainstorm.
         </p>
       </div>
-
       <hr class="border-stone-100">
-
       <div>
         <h3 class="text-lg font-bold text-stone-900 mb-2">Drinks</h3>
         <p class="text-sm text-stone-600 leading-relaxed">
           We'll have a signature cocktail, hard seltzers, and bourbon to share. There will be some nonalcoholic beverages/soda as well, but otherwise bring what you'd like to drink.
         </p>
       </div>
-
       <hr class="border-stone-100">
-
       <div>
         <h3 class="text-lg font-bold text-stone-900 mb-3">Day-Of Info</h3>
         <div class="space-y-3 text-sm text-stone-600">
@@ -120,17 +108,16 @@
           </div>
         </div>
       </div>
-
     </div>
 
-    <!-- RSVP Form -->
+    <!-- RSVP Form with Autocomplete -->
     <div class="bg-white rounded-2xl shadow-sm border border-stone-200/80 p-6 sm:p-8">
       <h2 class="text-xl font-bold text-stone-900 mb-6 text-center">RSVP</h2>
-      
       <form id="rsvpForm" class="space-y-5">
-        <div>
+        <div class="relative">
           <label for="name" class="block text-xs font-semibold uppercase text-stone-500 mb-1">Full Name *</label>
-          <input type="text" id="name" name="name" required class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-stone-800 focus:outline-none text-sm">
+          <input type="text" id="name" name="name" required autocomplete="off" placeholder="Start typing your name..." class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-stone-800 focus:outline-none text-sm">
+          <div id="nameSuggestions" class="hidden absolute z-20 left-0 right-0 mt-1 bg-white border border-stone-200 rounded-xl shadow-lg max-h-48 overflow-y-auto divide-y divide-stone-100"></div>
         </div>
 
         <div>
@@ -166,8 +153,23 @@
           Submit Response
         </button>
       </form>
-
       <div id="statusMsg" class="hidden mt-4 p-4 rounded-xl text-center text-sm font-medium"></div>
+    </div>
+
+    <!-- Guest List Display -->
+    <div class="bg-white rounded-2xl shadow-sm border border-stone-200/80 p-6 sm:p-8">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-bold text-stone-900">Guest List</h2>
+        <span id="guestCountBadge" class="text-xs font-semibold bg-stone-100 text-stone-600 px-3 py-1 rounded-full">Loading...</span>
+      </div>
+      <div class="flex border-b border-stone-200 mb-6 text-sm font-medium">
+        <button id="tabAttending" onclick="switchGuestTab('Yes')" class="py-2 px-4 border-b-2 border-stone-900 text-stone-900 font-bold">Attending (<span id="countYes">0</span>)</button>
+        <button id="tabPending" onclick="switchGuestTab('Pending')" class="py-2 px-4 border-b-2 border-transparent text-stone-500 hover:text-stone-800">Pending (<span id="countPending">0</span>)</button>
+        <button id="tabDeclined" onclick="switchGuestTab('No')" class="py-2 px-4 border-b-2 border-transparent text-stone-500 hover:text-stone-800">Declined (<span id="countNo">0</span>)</button>
+      </div>
+      <div id="guestListContainer" class="space-y-3">
+        <p class="text-sm text-stone-400 italic text-center py-4">Fetching guest list...</p>
+      </div>
     </div>
 
   </main>
@@ -177,47 +179,130 @@
   </footer>
 
   <script>
-    // Paste your Google Apps Script Web App URL below
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyD79vxYYK0xlqWJuWh7lAkPyPiWua_8T3GEmSnN4rUQ9KX56215VKZiDt3OhL_XXJ1IQ/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8cRvnrCjoQ1cp8Ug15_VepaMDwE4bkQAHo8atxubo1GaUvvkD0PpwYLslTKY76LDmsA/exec';
+    let allGuests = [];
+    let currentTab = 'Yes';
 
-    // Helper: Extracts current folder name from URL path (e.g., 'friendsgiving-2026')
     function getEventTabName() {
       const pathSegments = window.location.pathname.split('/').filter(Boolean);
-      if (pathSegments.length > 1) {
-        return pathSegments[pathSegments.length - 1];
-      }
-      return 'friendsgiving-2026'; // Fallback tab name if tested locally
+      if (pathSegments.length > 1) return pathSegments[pathSegments.length - 1];
+      return 'friendsgiving-2026';
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      // Parse URL parameters for guest name pre-fill (?guest=Name)
       const urlParams = new URLSearchParams(window.location.search);
       const guestName = urlParams.get('guest');
-      if (guestName) {
-        document.getElementById('name').value = decodeURIComponent(guestName);
-      }
+      if (guestName) document.getElementById('name').value = decodeURIComponent(guestName);
 
-      // Generate Google Calendar Link for Nov 21, 2026 (4:00 PM - 10:00 PM CST)
       const title = encodeURIComponent("Friendsgiving \"Board\" Potluck");
       const details = encodeURIComponent("Bring a themed board to share! Hosted by Nick + Kelsey.");
       const location = encodeURIComponent("4034 Pompton Ct, Elgin, IL 60124");
-      const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261121T220000Z/20261122T040000Z&details=${details}&location=${location}`;
-      document.getElementById('calLink').href = calUrl;
+      document.getElementById('calLink').href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261121T220000Z/20261122T040000Z&details=${details}&location=${location}`;
+
+      fetchGuestList();
     });
 
+    async function fetchGuestList() {
+      const container = document.getElementById('guestListContainer');
+      try {
+        const res = await fetch(`${APPS_SCRIPT_URL}?tabName=${encodeURIComponent(getEventTabName())}`);
+        const data = await res.json();
+        allGuests = data.guests || [];
+        updateGuestCounts();
+        renderGuestList();
+      } catch (err) {
+        container.innerHTML = '<p class="text-sm text-stone-400 text-center py-4">Unable to load guest list.</p>';
+      }
+    }
+
+    function updateGuestCounts() {
+      document.getElementById('countYes').innerText = allGuests.filter(g => g.attending === 'Yes').length;
+      document.getElementById('countPending').innerText = allGuests.filter(g => g.attending === 'Pending').length;
+      document.getElementById('countNo').innerText = allGuests.filter(g => g.attending === 'No').length;
+      document.getElementById('guestCountBadge').innerText = `${allGuests.length} Invited`;
+    }
+
+    function switchGuestTab(status) {
+      currentTab = status;
+      const tabs = { 'Yes': 'tabAttending', 'Pending': 'tabPending', 'No': 'tabDeclined' };
+      Object.keys(tabs).forEach(key => {
+        document.getElementById(tabs[key]).className = key === status 
+          ? "py-2 px-4 border-b-2 border-stone-900 text-stone-900 font-bold" 
+          : "py-2 px-4 border-b-2 border-transparent text-stone-500 hover:text-stone-800";
+      });
+      renderGuestList();
+    }
+
+    function renderGuestList() {
+      const container = document.getElementById('guestListContainer');
+      const filtered = allGuests.filter(g => g.attending === currentTab);
+      if (filtered.length === 0) {
+        container.innerHTML = `<p class="text-sm text-stone-400 italic text-center py-4">No guests currently in this list.</p>`;
+        return;
+      }
+      container.innerHTML = filtered.map(g => `
+        <div class="flex items-center justify-between p-3 bg-stone-50 rounded-xl border border-stone-100">
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-full bg-stone-200 text-stone-700 flex items-center justify-center text-xs font-bold">
+              ${g.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-stone-800">${g.name}</p>
+              ${g.plusOnes ? `<p class="text-xs text-stone-500">+ ${g.plusOnes}</p>` : ''}
+            </div>
+          </div>
+          <span class="text-xs font-medium px-2.5 py-1 rounded-full ${
+            g.attending === 'Yes' ? 'bg-emerald-100 text-emerald-800' :
+            g.attending === 'No' ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-800'
+          }">${g.attending}</span>
+        </div>
+      `).join('');
+    }
+
+    // Autocomplete Search Logic
+    const nameInput = document.getElementById('name');
+    const suggestionsBox = document.getElementById('nameSuggestions');
+
+    nameInput.addEventListener('input', (e) => {
+      const query = e.target.value.trim().toLowerCase();
+      if (query.length < 2) { suggestionsBox.classList.add('hidden'); return; }
+      const matches = allGuests.filter(g => g.name.toLowerCase().includes(query));
+      if (matches.length === 0) { suggestionsBox.classList.add('hidden'); return; }
+
+      suggestionsBox.innerHTML = matches.map(g => `
+        <div class="p-3 text-sm hover:bg-stone-50 cursor-pointer flex justify-between items-center transition-colors" onclick="selectGuest('${g.name.replace(/'/g, "\\'")}')">
+          <span class="font-medium text-stone-800">${g.name}</span>
+          <span class="text-xs px-2 py-0.5 rounded-full ${
+            g.attending === 'Yes' ? 'bg-emerald-100 text-emerald-800' :
+            g.attending === 'No' ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-800'
+          }">${g.attending}</span>
+        </div>
+      `).join('');
+      suggestionsBox.classList.remove('hidden');
+    });
+
+    function selectGuest(name) {
+      nameInput.value = name;
+      suggestionsBox.classList.add('hidden');
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!nameInput.contains(e.target) && !suggestionsBox.contains(e.target)) suggestionsBox.classList.add('hidden');
+    });
+
+    // Form Submission
     const form = document.getElementById('rsvpForm');
     const submitBtn = document.getElementById('submitBtn');
     const statusMsg = document.getElementById('statusMsg');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
       submitBtn.disabled = true;
       submitBtn.innerText = 'Submitting...';
       statusMsg.classList.add('hidden');
 
       const formData = {
-        tabName: getEventTabName(), // Dynamically passes folder name to Apps Script
+        tabName: getEventTabName(),
         name: document.getElementById('name').value,
         attending: form.elements['attending'].value,
         plusOnes: document.getElementById('plusOnes').value,
@@ -237,6 +322,7 @@
         statusMsg.innerText = "Thank you! Your RSVP has been recorded.";
         statusMsg.classList.remove('hidden');
         form.reset();
+        fetchGuestList();
       } catch (err) {
         statusMsg.className = 'mt-4 p-4 rounded-xl text-center text-sm font-medium bg-rose-50 text-rose-800 border border-rose-200';
         statusMsg.innerText = "An error occurred. Please try submitting again.";
