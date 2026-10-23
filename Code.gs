@@ -67,15 +67,6 @@ function doGet(e) {
     };
   });
 
-  function findCategoryName(rawString) {
-    if (!rawString) return null;
-    var lower = rawString.trim().toLowerCase();
-    for (var key in categoriesMap) {
-      if (key === lower) return categoriesMap[key].name;
-    }
-    return null;
-  }
-
   if (!sheet) {
     var emptyCategories = categoryConfigs.map(function(c) {
       return {
@@ -95,38 +86,21 @@ function doGet(e) {
   var guests = [];
 
   // Skip header row (row 1)
+  // Column mapping:
+  // Col A (0): Timestamp
+  // Col B (1): Guest Name
+  // Col C (2): Attending
+  // Col D (3): Dish
+  // Col E (4): Dish Category
+  // Col F (5): Optional Note
   for (var i = 1; i < data.length; i++) {
     var name = (data[i][1] || '').toString().trim();
     var attending = (data[i][2] || 'Pending').toString().trim();
-    var rawColD = (data[i][3] || '').toString().trim();
-    var notes = (data[i][4] || '').toString().trim();
+    var parsedDish = (data[i][3] || '').toString().trim();
+    var parsedCat = (data[i][4] || '').toString().trim();
+    var notes = (data[i][5] || '').toString().trim();
 
     if (name) {
-      var parsedCat = '';
-      var parsedDish = '';
-
-      if (rawColD) {
-        var colonIndex = rawColD.indexOf(':');
-        if (colonIndex > -1) {
-          var potentialCat = rawColD.substring(0, colonIndex).trim();
-          var matchedCat = findCategoryName(potentialCat);
-          if (matchedCat) {
-            parsedCat = matchedCat;
-            parsedDish = rawColD.substring(colonIndex + 1).trim();
-          } else {
-            parsedDish = rawColD;
-          }
-        } else {
-          var matchedCatOnly = findCategoryName(rawColD);
-          if (matchedCatOnly) {
-            parsedCat = matchedCatOnly;
-            parsedDish = '';
-          } else {
-            parsedDish = rawColD;
-          }
-        }
-      }
-
       var guestObj = {
         name: name,
         attending: attending,
@@ -177,8 +151,8 @@ function doPost(e) {
 
   if (!sheet) {
     sheet = ss.insertSheet(tabName);
-    sheet.appendRow(['Timestamp', 'Guest Name', 'Attending', 'Board Idea / Dish', 'Optional Note']);
-    sheet.getRange("A1:E1").setFontWeight("bold");
+    sheet.appendRow(['Timestamp', 'Guest Name', 'Attending', 'Dish', 'Dish Category', 'Optional Note']);
+    sheet.getRange("A1:F1").setFontWeight("bold");
   }
 
   var rows = sheet.getDataRange().getValues();
@@ -191,24 +165,19 @@ function doPost(e) {
     }
   }
 
-  // Format Column D & Column E values based on attendance
+  // Format fields based on attendance
   var dishVal = "";
+  var categoryVal = "";
   var notesVal = "";
 
-  if (data.attending && data.attending.toString().trim().toLowerCase() === 'no') {
-    // If declining, release previously held category slot and clear notes
+  if (data.attending && (data.attending.toString().trim().toLowerCase() === 'no' || data.attending.toString().trim().toLowerCase() === 'pending')) {
+    // If declining or TBD, clear dish and category fields
     dishVal = "";
-    notesVal = "";
+    categoryVal = "";
+    notesVal = (data.notes || "").toString().trim();
   } else {
-    if (data.category && data.dish) {
-      dishVal = data.category.trim() + ": " + data.dish.trim();
-    } else if (data.category) {
-      dishVal = data.category.trim();
-    } else if (data.dish) {
-      dishVal = data.dish.trim();
-    } else if (data.boardIdea) {
-      dishVal = data.boardIdea.trim();
-    }
+    dishVal = (data.dish || "").toString().trim();
+    categoryVal = (data.category || "").toString().trim();
     notesVal = (data.notes || "").toString().trim();
   }
 
@@ -216,13 +185,15 @@ function doPost(e) {
     sheet.getRange(existingRowIndex, 1).setValue(new Date());
     sheet.getRange(existingRowIndex, 3).setValue(data.attending);
     sheet.getRange(existingRowIndex, 4).setValue(dishVal);
-    sheet.getRange(existingRowIndex, 5).setValue(notesVal);
+    sheet.getRange(existingRowIndex, 5).setValue(categoryVal);
+    sheet.getRange(existingRowIndex, 6).setValue(notesVal);
   } else {
     sheet.appendRow([
       new Date(),
       data.name,
       data.attending,
       dishVal,
+      categoryVal,
       notesVal
     ]);
   }
