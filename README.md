@@ -1,114 +1,75 @@
 # Party Invite & RSVP Platform
 
-A lightweight, zero-cost, self-hosted event invitation and RSVP platform built with static HTML, Tailwind CSS, and Google Apps Script.
+A lightweight, self-hosted invitation and RSVP system for personal events.
 
-It automatically routes RSVPs from different event pages into corresponding tabs within a single Google Sheet based on your repository's directory structure.
+It hosts event pages on GitHub Pages and routes guest responses straight into dedicated tabs in a single Google Sheet—no backend server or database setup required.
 
-------------------------------------------------------------------------
+## 💡 How It Works
 
-## 🏗️ Architecture & How It Works
+1. **Guest Submits Form:** A guest fills out the RSVP form on an event page (e.g., `.../friendsgiving-2026/`).
 
-```         
-┌───────────────────────────────────────────────────────────┐
-│                      GitHub Pages                         │
-│                                                           │
-│  .../party-invite/friendsgiving-2025/  (index.html)       │
-│  .../party-invite/friendsgiving-2026/  (index.html)       │
-└──────────────────────────────┬────────────────────────────┘
-                               │
-                               │ POST Request (JSON payload)
-                               │ includes tabName extracted from URL path
-                               ▼
-┌───────────────────────────────────────────────────────────┐
-│                   Google Apps Script                      │
-│                                                           │
-│  1. Receives payload (Name, Attendance, Board Idea, etc.) │
-│  2. Checks Google Sheet for matching tabName              │
-│  3. Creates new tab + headers if it doesn't exist yet     │
-│  4. Appends guest submission as a new row                 │
-└──────────────────────────────┬────────────────────────────┘
-                               │
-                               ▼
-┌───────────────────────────────────────────────────────────┐
-│                     Google Sheets                         │
-│                                                           │
-│  [friendsgiving-2025]  [friendsgiving-2026]  [...]         │
-└──────────────────────────────┴────────────────────────────┘
+2. **Dynamic Folder Name Extraction:** The page automatically reads its URL path name (e.g., `friendsgiving-2026`).
+
+3. **Bridge to Google Sheets:** JavaScript sends the form answers and folder name to a custom Google Apps Script.
+
+4. **Automatic Sheet Update:** The script checks your Google Sheet for a tab matching that folder name. If the tab doesn't exist yet, it creates it with headers, then appends the guest's RSVP as a new row.
+
 ```
-
-1.  **Frontend Hosting (GitHub Pages):** Each event lives in its own subdirectory (e.g., `friendsgiving-2026/`).
-2.  **Dynamic Routing (`getEventTabName()`):** On form submission, JavaScript inspects `window.location.pathname` to extract the current folder name (e.g., `friendsgiving-2026`).
-3.  **Backend API (Google Apps Script):** The site `fetch()`es your script endpoint with a `POST` request containing guest details and the target `tabName`.
-4.  **Database (Google Sheets):** The Google Apps Script appends the entry to the specified tab. If the tab doesn't exist yet, it creates it dynamically with default headers.
-
-------------------------------------------------------------------------
+[ Guest Fills Out Form ]
+          │
+          ▼
+[ Website Reads Folder Name: "friendsgiving-2026" ]
+          │
+          ▼
+[ Script Receives Data ➔ Finds/Creates Tab ➔ Adds Row in Google Sheet ]
+```
 
 ## 📁 Repository Structure
 
-``` text
+Each event lives in its own dedicated folder containing an `index.html` file. The repository also contains the Google Apps Script code used in Google Sheets.
+
+```
 party-invite/
-├── README.md                  # System documentation
+├── README.md
+├── Code.gs                 # Google Apps Script backend code
 ├── friendsgiving-2025/
-│   └── index.html             # 2025 Event page & RSVP form
+│   └── index.html          # 2025 Event page & RSVP form
 ├── friendsgiving-2026/
-│   └── index.html             # 2026 Event page & RSVP form
-└── [future-event-folder]/
-    └── index.html             # Future event copy
+│   └── index.html          # 2026 Event page & RSVP form
+└── [new-event-folder]/
+    └── index.html          # Future event folder & page
 ```
 
-------------------------------------------------------------------------
+## ⚙️ Google Apps Script Backend
 
-## ⚙️ Backend Setup (Google Sheets & Apps Script)
+The Google Apps Script logic is saved locally in this repository at `Code.gs`.
 
-### 1. Google Apps Script Code (`Code.gs`)
+To update or set up the script in Google Sheets:
+1. Open your destination Google Sheet.
+2. Go to **Extensions > Apps Script**.
+3. Copy the code from `Code.gs` in this repository into your Apps Script editor.
 
-Attached to your target Google Sheet via **Extensions \> Apps Script**:
+### Script Deployment Settings
+When deploying the script from Google Sheets, use the following settings:
+* **Execute as:** `Me`
+* **Who has access:** `Anyone`
 
-``` javascript
-function doPost(e) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var data = JSON.parse(e.postData.contents);
-  
-  var tabName = data.tabName || 'General RSVPs';
-  var sheet = ss.getSheetByName(tabName);
-  
-  // Auto-create tab with headers if missing
-  if (!sheet) {
-    sheet = ss.insertSheet(tabName);
-    sheet.appendRow([
-      'Timestamp',
-      'Guest Name',
-      'Attending',
-      'Plus Ones',
-      'Board Idea / Notes',
-      'Contact Info'
-    ]);
-    sheet.getRange("A1:F1").setFontWeight("bold");
-  }
-  
-  // Append guest response
-  sheet.appendRow([
-    new Date(),
-    data.name,
-    data.attending,
-    data.plusOnes,
-    data.dietary,
-    data.contactInfo
-  ]);
-  
-  return ContentService
-    .createTextOutput(JSON.stringify({ "result": "success" }))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-```
+## 🛠️ How to Make Updates Down the Line
 
-### 2. Deployment Settings
+### Adding a New Event
 
-- **Execute as:** `Me`
-- **Who has access:** `Anyone`
+1. Copy an existing event folder (e.g., duplicate `friendsgiving-2026/` and rename it `friendsgiving-2027/`).
 
-------------------------------------------------------------------------
+2. Edit the text and event details inside `friendsgiving-2027/index.html`.
 
-## 🚀 Adding a New Event
+3. Commit and push your changes to GitHub. When the first guest submits an RSVP on the new page, the script will automatically create a tab named `friendsgiving-2027` in your Google Sheet.
 
-To spin up an invitation page for a new party, just create a new folder in the repository matching your desired Google Sheet tab name.
+### Changing Form Fields or Sheet Columns
+
+If you add, remove, or rename questions in your HTML form:
+
+1. Update `Code.gs` locally in your repository:
+   * **Update headers:** Modify the array inside `if (!sheet)` to set your column titles for new tabs.
+   * **Update output row:** Modify the array inside `sheet.appendRow([...])` at the bottom to match your new form variable names (`data.yourNewField`).
+2. Copy the updated code from `Code.gs` into your Google Sheet's script editor (**Extensions > Apps Script**).
+3. **Publish new deployment:** Click **Deploy > Manage Deployments**, select the edit icon next to your active deployment, select **New version**, and click **Deploy**.
