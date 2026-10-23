@@ -183,27 +183,27 @@
           <label class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-2">Will you be attending? *</label>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
             <!-- Joyfully Accept -->
-            <label class="group relative flex items-center justify-center p-3 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-emerald-50 hover:border-emerald-300 text-stone-700 text-xs font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-emerald-600 has-[:checked]:text-white has-[:checked]:border-emerald-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
+            <label class="group relative flex items-center justify-center px-1.5 py-3 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-emerald-50 hover:border-emerald-300 text-stone-700 text-xs font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-emerald-600 has-[:checked]:text-white has-[:checked]:border-emerald-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
               <input type="radio" name="attending" value="Yes" required class="sr-only" onchange="onAttendanceChange('Yes')">
-              <span class="flex items-center space-x-1">
+              <span class="flex items-center space-x-1 whitespace-nowrap">
                 <span class="text-sm group-has-[:checked]:scale-110 transition-transform">🎉</span>
                 <span>Joyfully Accept</span>
               </span>
             </label>
 
             <!-- TBD / Undecided -->
-            <label class="group relative flex items-center justify-center p-3 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-amber-50 hover:border-amber-300 text-stone-700 text-xs font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-amber-600 has-[:checked]:text-white has-[:checked]:border-amber-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
+            <label class="group relative flex items-center justify-center px-1.5 py-3 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-amber-50 hover:border-amber-300 text-stone-700 text-xs font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-amber-600 has-[:checked]:text-white has-[:checked]:border-amber-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
               <input type="radio" name="attending" value="Pending" required class="sr-only" onchange="onAttendanceChange('Pending')">
-              <span class="flex items-center space-x-1">
+              <span class="flex items-center space-x-1 whitespace-nowrap">
                 <span class="text-sm group-has-[:checked]:scale-110 transition-transform">🤔</span>
                 <span>TBD / Undecided</span>
               </span>
             </label>
 
             <!-- Regretfully Decline -->
-            <label class="group relative flex items-center justify-center p-3 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-rose-50 hover:border-rose-300 text-stone-700 text-xs font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-rose-600 has-[:checked]:text-white has-[:checked]:border-rose-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
+            <label class="group relative flex items-center justify-center px-1.5 py-3 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-rose-50 hover:border-rose-300 text-stone-700 text-xs font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-rose-600 has-[:checked]:text-white has-[:checked]:border-rose-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
               <input type="radio" name="attending" value="No" required class="sr-only" onchange="onAttendanceChange('No')">
-              <span class="flex items-center space-x-1">
+              <span class="flex items-center space-x-1 whitespace-nowrap">
                 <span class="text-sm group-has-[:checked]:scale-110 transition-transform">😞</span>
                 <span>Regretfully Decline</span>
               </span>
@@ -217,7 +217,7 @@
           <div>
             <div class="flex items-center justify-between mb-1.5">
               <label for="categorySelect" class="block text-xs font-bold uppercase tracking-wider text-stone-500">
-                Potluck Category *
+                Potluck Category
               </label>
               <button 
                 type="button" 
@@ -235,14 +235,14 @@
               onchange="onCategorySelectChange()" 
               class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none text-sm transition-all shadow-xs bg-white text-stone-800 font-medium"
             >
-              <option value="Undecided">Undecided</option>
+              <option value="Undecided" selected>Undecided</option>
             </select>
 
-            <!-- Reminder message if Undecided is selected -->
-            <div id="undecidedReminder" class="hidden mt-2.5 p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 flex items-start space-x-2 shadow-xs">
-              <span class="text-sm">💡</span>
-              <span class="leading-relaxed font-medium">Not sure yet? No problem! Submit your RSVP now and come back anytime before Nov 16th to pick a category and dish.</span>
-            </div>
+            <!-- Undecided Reminder Note -->
+            <p id="undecidedNote" class="mt-2 text-xs font-medium text-amber-800 bg-amber-50 border border-amber-200/80 p-2.5 rounded-xl flex items-center space-x-1.5">
+              <span>💡</span>
+              <span>Not sure yet? No problem! Submit your RSVP now and come back anytime before Nov 16th to pick a category and dish.</span>
+            </p>
 
             <!-- Contextual Category Preview Box -->
             <div id="categoryPreview" class="hidden mt-2.5"></div>
@@ -250,8 +250,8 @@
 
           <!-- Specific Dish Input -->
           <div>
-            <label id="dishLabel" for="specificDish" class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-1.5">
-              Specific Dish Bringing (Optional)
+            <label for="specificDish" class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-1.5">
+              Specific Dish Bringing <span id="dishLabelRequired" class="text-stone-500">*</span><span id="dishLabelOptional" class="hidden text-stone-400 font-normal lowercase">(optional)</span>
             </label>
             <input 
               type="text" 
@@ -436,9 +436,20 @@
       const select = document.getElementById('categorySelect');
       const currentSelected = preserveSelectedValue ? select.value : 'Undecided';
 
-      select.innerHTML = '<option value="Undecided">Undecided</option>';
+      select.innerHTML = '';
+
+      // Default Undecided option
+      const undecidedOpt = document.createElement('option');
+      undecidedOpt.value = 'Undecided';
+      undecidedOpt.innerText = 'Undecided';
+      if (!currentSelected || currentSelected === 'Undecided') {
+        undecidedOpt.selected = true;
+      }
+      select.appendChild(undecidedOpt);
 
       allCategories.forEach(cat => {
+        if (cat.name.toLowerCase() === 'undecided') return; // Explicitly ignore if manually added to config
+
         const remaining = getEffectiveRemaining(cat.name);
         const option = document.createElement('option');
         option.value = cat.name;
@@ -454,40 +465,42 @@
           option.innerText = `${cat.name} (FULL - 0 remaining)`;
         }
 
+        if (currentSelected && currentSelected.toLowerCase() === cat.name.toLowerCase()) {
+          option.selected = true;
+        }
+
         select.appendChild(option);
       });
 
-      if (currentSelected) {
-        const optionToSelect = Array.from(select.options).find(opt => opt.value === currentSelected && !opt.disabled);
-        if (optionToSelect) {
-          select.value = currentSelected;
-        } else {
-          select.value = 'Undecided';
-        }
-      } else {
-        select.value = 'Undecided';
-      }
-
-      onCategorySelectChange();
+      renderCategoryPreview();
+      updateDishRequirement();
     }
 
     function onCategorySelectChange() {
-      const select = document.getElementById('categorySelect');
-      const dishInput = document.getElementById('specificDish');
-      const dishLabel = document.getElementById('dishLabel');
-      const reminder = document.getElementById('undecidedReminder');
-      
-      if (select.value === 'Undecided') {
-        dishInput.required = false;
-        dishLabel.innerText = 'Specific Dish Bringing (Optional)';
-        if (reminder) reminder.classList.remove('hidden');
-      } else {
-        dishInput.required = true;
-        dishLabel.innerText = 'Specific Dish Bringing *';
-        if (reminder) reminder.classList.add('hidden');
-      }
-      
       renderCategoryPreview();
+      updateDishRequirement();
+    }
+
+    function updateDishRequirement() {
+      const select = document.getElementById('categorySelect');
+      const specificDish = document.getElementById('specificDish');
+      const reqLabel = document.getElementById('dishLabelRequired');
+      const optLabel = document.getElementById('dishLabelOptional');
+      const note = document.getElementById('undecidedNote');
+
+      const isUndecided = select.value === 'Undecided' || !select.value;
+
+      if (isUndecided) {
+        specificDish.required = false;
+        reqLabel.classList.add('hidden');
+        optLabel.classList.remove('hidden');
+        note.classList.remove('hidden');
+      } else {
+        specificDish.required = true;
+        reqLabel.classList.remove('hidden');
+        optLabel.classList.add('hidden');
+        note.classList.add('hidden');
+      }
     }
 
     function renderCategoryPreview() {
@@ -545,15 +558,12 @@
 
     function onAttendanceChange(status) {
       const dishSection = document.getElementById('dishSection');
-      const categorySelect = document.getElementById('categorySelect');
 
       if (status === 'Yes') {
         dishSection.classList.remove('hidden');
-        categorySelect.required = true;
-        onCategorySelectChange(); // Validates the specific dish requirement based on category selection
+        updateDishRequirement();
       } else {
         dishSection.classList.add('hidden');
-        categorySelect.required = false;
         document.getElementById('specificDish').required = false;
       }
     }
@@ -594,6 +604,7 @@
       let totalClaimed = 0;
 
       allCategories.forEach(c => {
+        if (c.name.toLowerCase() === 'undecided') return; // Explicitly ignore
         totalMax += (c.max || 0);
         totalClaimed += (c.dishes || []).length;
       });
@@ -603,6 +614,8 @@
       }
 
       container.innerHTML = allCategories.map(cat => {
+        if (cat.name.toLowerCase() === 'undecided') return ''; // Explicitly ignore
+
         const remaining = getEffectiveRemaining(cat.name);
         const isFull = remaining <= 0;
         const dishes = cat.dishes || [];
@@ -713,6 +726,10 @@
             ? 'bg-rose-100 text-rose-800 border-rose-200' 
             : 'bg-amber-100 text-amber-800 border-amber-200');
 
+        const catText = (g.category && g.category !== 'Undecided') ? g.category : '';
+        const dishText = g.dish || '';
+        const hasDishInfo = (catText || dishText) && g.attending === 'Yes';
+
         return `
           <div class="flex items-center justify-between p-3.5 bg-stone-50/90 rounded-xl border border-stone-200/70">
             <div class="flex items-center space-x-3">
@@ -721,9 +738,9 @@
               </div>
               <div>
                 <p class="text-sm font-semibold text-stone-800">${escapeHtml(g.name)}</p>
-                ${(g.category || g.dish) && g.attending === 'Yes' ? `
+                ${hasDishInfo ? `
                   <p class="text-xs text-stone-500 font-medium">
-                    <span class="text-amber-800 font-semibold">${escapeHtml(g.category || 'Dish')}:</span> ${escapeHtml(g.dish || '')}
+                    ${catText ? `<span class="text-amber-800 font-semibold">${escapeHtml(catText)}:</span> ` : ''}${escapeHtml(dishText)}
                   </p>
                 ` : ''}
               </div>
@@ -736,12 +753,11 @@
       }).join('');
     }
 
-    // Autocomplete & Returning Guest Logic
+    // Autocomplete & Pre-Populated / Returning Guest Logic
     const nameInput = document.getElementById('name');
     const suggestionsBox = document.getElementById('nameSuggestions');
 
     nameInput.addEventListener('input', (e) => {
-      // Hide status message whenever the Full Name field changes
       document.getElementById('statusMsg').classList.add('hidden');
       
       const query = e.target.value.trim().toLowerCase();
@@ -776,7 +792,7 @@
               </div>
               <div>
                 <span class="font-medium text-stone-800">${escapeHtml(g.name)}</span>
-                ${g.category && g.attending === 'Yes' ? `<span class="block text-[11px] text-stone-400 font-normal">${escapeHtml(g.category)}</span>` : ''}
+                ${g.category && g.category !== 'Undecided' && g.attending === 'Yes' ? `<span class="block text-[11px] text-stone-400 font-normal">${escapeHtml(g.category)}</span>` : ''}
               </div>
             </div>
             <span class="text-xs font-semibold px-2 py-0.5 rounded-full border ${badgeClasses}">
@@ -805,13 +821,11 @@
         if (activeReturningGuest !== matched.name) {
           activeReturningGuest = matched.name;
           
-          // Check if guest has previously submitted a definitive RSVP response
           const hasSubmittedRSVP = matched.attending === 'Yes' || matched.attending === 'No';
 
           currentGuestOriginalCategory = (matched.attending === 'Yes' && matched.category && matched.category !== 'Undecided') ? matched.category : null;
           submitBtn.innerText = hasSubmittedRSVP ? 'Update Response' : 'Submit Response';
 
-          // Pre-fill Attendance radio if available
           const form = document.getElementById('rsvpForm');
           if (matched.attending === 'Yes' || matched.attending === 'No' || matched.attending === 'Pending') {
             form.elements['attending'].value = matched.attending;
@@ -822,10 +836,12 @@
 
           if (matched.category) {
             document.getElementById('categorySelect').value = matched.category;
+            renderCategoryPreview();
+            updateDishRequirement();
           } else {
             document.getElementById('categorySelect').value = 'Undecided';
+            updateDishRequirement();
           }
-          onCategorySelectChange();
 
           if (matched.dish) {
             document.getElementById('specificDish').value = matched.dish;
@@ -855,6 +871,8 @@
           document.getElementById('notes').value = '';
 
           updateCategoryDropdown(false);
+          renderCategoryPreview();
+          updateDishRequirement();
           renderSpreadSection();
         }
       }
@@ -899,20 +917,18 @@
         });
 
         statusMsg.className = 'mt-4 p-4 rounded-xl text-center text-sm font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200';
-        statusMsg.innerText = currentGuestOriginalCategory || (activeReturningGuest === formData.name)
+        statusMsg.innerText = (currentGuestOriginalCategory || activeReturningGuest)
           ? "Thank you! Your RSVP response has been successfully updated."
           : "Thank you! Your RSVP has been recorded.";
         statusMsg.classList.remove('hidden');
 
-        // Allow subsequent submits by the same person on this session to act as updates
         activeReturningGuest = formData.name;
-        currentGuestOriginalCategory = categoryVal && categoryVal !== 'Undecided' ? categoryVal : null;
+        if (attendingVal === 'Yes' && categoryVal && categoryVal !== 'Undecided') {
+          currentGuestOriginalCategory = categoryVal;
+        }
         submitBtn.innerText = 'Update Response';
 
-        // We DO NOT clear the form per the request.
-        renderCategoryPreview();
         await fetchGuestList();
-
       } catch (err) {
         statusMsg.className = 'mt-4 p-4 rounded-xl text-center text-sm font-semibold bg-rose-50 text-rose-800 border border-rose-200';
         statusMsg.innerText = "An error occurred. Please try submitting again.";
