@@ -178,7 +178,7 @@
           <div id="nameSuggestions" class="hidden absolute z-20 left-0 right-0 mt-1 bg-white border border-stone-200 rounded-xl shadow-xl max-h-48 overflow-y-auto divide-y divide-stone-100"></div>
         </div>
 
-        <!-- Tactile Color-Coded RSVP Buttons (3 Options: Joyfully Accept, Regretfully Decline, TBD / Undecided) -->
+        <!-- Tactile Color-Coded RSVP Buttons -->
         <div>
           <label class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-2">Will you be attending? *</label>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
@@ -211,7 +211,7 @@
           </div>
         </div>
 
-        <!-- Potluck Category & Dish Section (Only visible when Joyfully Accept is selected) -->
+        <!-- Potluck Category & Dish Section -->
         <div id="dishSection" class="hidden space-y-4 pt-1">
           <!-- Category Selector Dropdown -->
           <div>
@@ -235,8 +235,14 @@
               onchange="onCategorySelectChange()" 
               class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none text-sm transition-all shadow-xs bg-white text-stone-800 font-medium"
             >
-              <option value="" disabled selected>Select a category...</option>
+              <option value="Undecided">Undecided</option>
             </select>
+
+            <!-- Reminder message if Undecided is selected -->
+            <div id="undecidedReminder" class="hidden mt-2.5 p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 flex items-start space-x-2 shadow-xs">
+              <span class="text-sm">💡</span>
+              <span class="leading-relaxed font-medium">Not sure yet? No problem! Submit your RSVP now and come back anytime before Nov 16th to pick a category and dish.</span>
+            </div>
 
             <!-- Contextual Category Preview Box -->
             <div id="categoryPreview" class="hidden mt-2.5"></div>
@@ -244,8 +250,8 @@
 
           <!-- Specific Dish Input -->
           <div>
-            <label for="specificDish" class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-1.5">
-              Specific Dish Bringing *
+            <label id="dishLabel" for="specificDish" class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-1.5">
+              Specific Dish Bringing (Optional)
             </label>
             <input 
               type="text" 
@@ -281,7 +287,7 @@
       <div id="statusMsg" class="hidden mt-4 p-4 rounded-xl text-center text-sm font-medium"></div>
     </div>
 
-    <!-- Collapsible Current Potluck Spread Section (Cleaned: Action buttons removed) -->
+    <!-- Collapsible Current Potluck Spread Section -->
     <div id="spreadCollapsibleSection" class="bg-white rounded-2xl shadow-md border border-stone-200/90 overflow-hidden">
       <button 
         type="button" 
@@ -416,6 +422,7 @@
     }
 
     function getEffectiveRemaining(categoryName) {
+      if (!categoryName || categoryName === 'Undecided') return 0;
       const cat = allCategories.find(c => c.name.toLowerCase() === categoryName.toLowerCase());
       if (!cat) return 0;
       let remaining = cat.remaining;
@@ -427,9 +434,9 @@
 
     function updateCategoryDropdown(preserveSelectedValue = true) {
       const select = document.getElementById('categorySelect');
-      const currentSelected = preserveSelectedValue ? select.value : '';
+      const currentSelected = preserveSelectedValue ? select.value : 'Undecided';
 
-      select.innerHTML = '<option value="" disabled selected>Select a category...</option>';
+      select.innerHTML = '<option value="Undecided">Undecided</option>';
 
       allCategories.forEach(cat => {
         const remaining = getEffectiveRemaining(cat.name);
@@ -447,17 +454,39 @@
           option.innerText = `${cat.name} (FULL - 0 remaining)`;
         }
 
-        if (currentSelected && currentSelected.toLowerCase() === cat.name.toLowerCase()) {
-          option.selected = true;
-        }
-
         select.appendChild(option);
       });
 
-      renderCategoryPreview();
+      if (currentSelected) {
+        const optionToSelect = Array.from(select.options).find(opt => opt.value === currentSelected && !opt.disabled);
+        if (optionToSelect) {
+          select.value = currentSelected;
+        } else {
+          select.value = 'Undecided';
+        }
+      } else {
+        select.value = 'Undecided';
+      }
+
+      onCategorySelectChange();
     }
 
     function onCategorySelectChange() {
+      const select = document.getElementById('categorySelect');
+      const dishInput = document.getElementById('specificDish');
+      const dishLabel = document.getElementById('dishLabel');
+      const reminder = document.getElementById('undecidedReminder');
+      
+      if (select.value === 'Undecided') {
+        dishInput.required = false;
+        dishLabel.innerText = 'Specific Dish Bringing (Optional)';
+        if (reminder) reminder.classList.remove('hidden');
+      } else {
+        dishInput.required = true;
+        dishLabel.innerText = 'Specific Dish Bringing *';
+        if (reminder) reminder.classList.add('hidden');
+      }
+      
       renderCategoryPreview();
     }
 
@@ -466,7 +495,7 @@
       const previewBox = document.getElementById('categoryPreview');
       const chosenCatName = select.value;
 
-      if (!chosenCatName) {
+      if (!chosenCatName || chosenCatName === 'Undecided') {
         previewBox.classList.add('hidden');
         previewBox.innerHTML = '';
         return;
@@ -517,16 +546,15 @@
     function onAttendanceChange(status) {
       const dishSection = document.getElementById('dishSection');
       const categorySelect = document.getElementById('categorySelect');
-      const specificDish = document.getElementById('specificDish');
 
       if (status === 'Yes') {
         dishSection.classList.remove('hidden');
         categorySelect.required = true;
-        specificDish.required = true;
+        onCategorySelectChange(); // Validates the specific dish requirement based on category selection
       } else {
         dishSection.classList.add('hidden');
         categorySelect.required = false;
-        specificDish.required = false;
+        document.getElementById('specificDish').required = false;
       }
     }
 
@@ -551,7 +579,6 @@
       document.getElementById('spreadCollapsibleSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    // Cleaned Spread Section (Displays claimed dishes/slots without claim action buttons)
     function renderSpreadSection() {
       const container = document.getElementById('spreadCollapsibleContent');
       const badge = document.getElementById('spreadTotalBadge');
@@ -709,11 +736,14 @@
       }).join('');
     }
 
-    // Autocomplete & Pre-Populated / Returning Guest Logic
+    // Autocomplete & Returning Guest Logic
     const nameInput = document.getElementById('name');
     const suggestionsBox = document.getElementById('nameSuggestions');
 
     nameInput.addEventListener('input', (e) => {
+      // Hide status message whenever the Full Name field changes
+      document.getElementById('statusMsg').classList.add('hidden');
+      
       const query = e.target.value.trim().toLowerCase();
       if (query.length < 2) { 
         suggestionsBox.classList.add('hidden');
@@ -778,7 +808,7 @@
           // Check if guest has previously submitted a definitive RSVP response
           const hasSubmittedRSVP = matched.attending === 'Yes' || matched.attending === 'No';
 
-          currentGuestOriginalCategory = (matched.attending === 'Yes' && matched.category) ? matched.category : null;
+          currentGuestOriginalCategory = (matched.attending === 'Yes' && matched.category && matched.category !== 'Undecided') ? matched.category : null;
           submitBtn.innerText = hasSubmittedRSVP ? 'Update Response' : 'Submit Response';
 
           // Pre-fill Attendance radio if available
@@ -792,8 +822,11 @@
 
           if (matched.category) {
             document.getElementById('categorySelect').value = matched.category;
-            renderCategoryPreview();
+          } else {
+            document.getElementById('categorySelect').value = 'Undecided';
           }
+          onCategorySelectChange();
+
           if (matched.dish) {
             document.getElementById('specificDish').value = matched.dish;
           }
@@ -803,7 +836,6 @@
 
           renderSpreadSection();
 
-          // Only display "Welcome back!" toast for returning guests who previously completed their RSVP
           if (hasSubmittedRSVP) {
             showToast(`Welcome back, ${matched.name}! Loaded your previous response.`);
           }
@@ -818,12 +850,11 @@
           attendingRadios.forEach(r => { r.checked = false; });
           onAttendanceChange(null);
 
-          document.getElementById('categorySelect').value = '';
+          document.getElementById('categorySelect').value = 'Undecided';
           document.getElementById('specificDish').value = '';
           document.getElementById('notes').value = '';
 
           updateCategoryDropdown(false);
-          renderCategoryPreview();
           renderSpreadSection();
         }
       }
@@ -856,7 +887,6 @@
         attending: attendingVal,
         category: categoryVal,
         dish: dishVal,
-        boardIdea: categoryVal ? (dishVal ? `${categoryVal}: ${dishVal}` : categoryVal) : dishVal,
         notes: document.getElementById('notes').value.trim()
       };
 
@@ -869,22 +899,20 @@
         });
 
         statusMsg.className = 'mt-4 p-4 rounded-xl text-center text-sm font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200';
-        statusMsg.innerText = currentGuestOriginalCategory 
+        statusMsg.innerText = currentGuestOriginalCategory || (activeReturningGuest === formData.name)
           ? "Thank you! Your RSVP response has been successfully updated."
           : "Thank you! Your RSVP has been recorded.";
         statusMsg.classList.remove('hidden');
 
-        activeReturningGuest = null;
-        currentGuestOriginalCategory = null;
-        submitBtn.innerText = 'Submit Response';
-        form.reset();
+        // Allow subsequent submits by the same person on this session to act as updates
+        activeReturningGuest = formData.name;
+        currentGuestOriginalCategory = categoryVal && categoryVal !== 'Undecided' ? categoryVal : null;
+        submitBtn.innerText = 'Update Response';
 
-        const attendingRadios = document.querySelectorAll('input[name="attending"]');
-        attendingRadios.forEach(r => { r.checked = false; });
-        onAttendanceChange(null);
+        // We DO NOT clear the form per the request.
         renderCategoryPreview();
-
         await fetchGuestList();
+
       } catch (err) {
         statusMsg.className = 'mt-4 p-4 rounded-xl text-center text-sm font-semibold bg-rose-50 text-rose-800 border border-rose-200';
         statusMsg.innerText = "An error occurred. Please try submitting again.";
