@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Friendsgiving "Board" Potluck (2026)</title>
+  <title>Friendsgiving Potluck (2026)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -27,7 +27,7 @@
         <img 
           id="eventBanner" 
           src="banner.png" 
-          alt="Friendsgiving 'Board' Potluck Banner" 
+          alt="Friendsgiving Potluck Banner" 
           class="w-full h-full object-cover"
           onerror="this.onerror=null; this.src='https://cdn.partey.io/uploads/header/kswTXwLyXEYY/header.jpg?v=1760403483373';"
         />
@@ -44,7 +44,7 @@
           </div>
           <div>
             <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 leading-tight">
-              Friendsgiving "Board" Potluck
+              Friendsgiving Potluck
             </h1>
             <p class="text-sm text-stone-600 font-medium mt-1">
               Hosted by <span class="text-stone-900 font-semibold">Nick + Kelsey</span>
@@ -111,21 +111,6 @@
 
       <div>
         <h3 class="text-base font-bold text-stone-900 mb-2 flex items-center space-x-2">
-          <span>🧀</span>
-          <span>What is a "Board" Potluck?</span>
-        </h3>
-        <p class="text-sm text-stone-600 leading-relaxed mb-3">
-          Similar to a standard potluck, everyone brings a dish to share. The twist is that instead of a single dish, each guest brings a themed food board. Charcuterie boards are the classic choice, but get creative! Think a s'mores-gasboard, a harvest veggie board, or a leftovers board.
-        </p>
-        <p class="text-sm text-stone-600 leading-relaxed">
-          These do not have to be Thanksgiving themed! If you are running short on ideas, text Nick or Kelsey and we can help you brainstorm.
-        </p>
-      </div>
-
-      <hr class="border-stone-100">
-
-      <div>
-        <h3 class="text-base font-bold text-stone-900 mb-2 flex items-center space-x-2">
           <span>🍹</span>
           <span>Drinks</span>
         </h3>
@@ -144,7 +129,7 @@
         <div class="space-y-3 text-sm text-stone-600">
           <div>
             <span class="font-bold text-stone-800">Timing:</span>
-            <p class="inline ml-1">5:00 PM is when we're aiming to have everyone's board set up and ready to be served.</p>
+            <p class="inline ml-1">5:00 PM is when we're aiming to have dinner served.</p>
           </div>
           <div>
             <span class="font-bold text-stone-800">Parking:</span>
@@ -211,12 +196,12 @@
 
         <!-- Dish Bringing -->
         <div>
-          <label for="boardIdea" class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-1.5">Dish / Board Idea</label>
+          <label for="boardIdea" class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-1.5">Dish Bringing</label>
           <input 
             type="text" 
             id="boardIdea" 
             name="boardIdea" 
-            placeholder="e.g. Mashed potatoes, Mac & Cheese, Charcuterie board" 
+            placeholder="e.g. Mashed potatoes, Mac & Cheese, Green Bean Casserole, Dessert" 
             class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none text-sm transition-all shadow-xs"
           >
         </div>
@@ -324,8 +309,9 @@
       const guestName = urlParams.get('guest');
       if (guestName) document.getElementById('name').value = decodeURIComponent(guestName);
 
-      const title = encodeURIComponent("Friendsgiving \"Board\" Potluck");
-      const details = encodeURIComponent("Bring a themed board to share! Hosted by Nick + Kelsey.");
+      const title = encodeURIComponent("Friendsgiving Potluck");
+      const eventUrl = window.location.href;
+      const details = encodeURIComponent(`Bring a dish to share! Hosted by Nick + Kelsey.\n\nRSVP & Event Details:\n${eventUrl}`);
       const location = encodeURIComponent("4034 Pompton Ct, Elgin, IL 60124");
       document.getElementById('calLink').href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261121T220000Z/20261122T040000Z&details=${details}&location=${location}`;
 
