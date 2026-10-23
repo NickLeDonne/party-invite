@@ -30,7 +30,7 @@
     
     <!-- Hero / Event Details Card -->
     <div class="bg-white rounded-2xl shadow-md border border-stone-200/90 overflow-hidden">
-      <!-- Banner Image (Customizable via banner.png) -->
+      <!-- Banner Image -->
       <div class="relative w-full h-48 sm:h-64 bg-amber-100 overflow-hidden">
         <img 
           id="eventBanner" 
@@ -178,31 +178,40 @@
           <div id="nameSuggestions" class="hidden absolute z-20 left-0 right-0 mt-1 bg-white border border-stone-200 rounded-xl shadow-xl max-h-48 overflow-y-auto divide-y divide-stone-100"></div>
         </div>
 
-        <!-- Tactile Color-Coded RSVP Buttons -->
+        <!-- Tactile Color-Coded RSVP Buttons (3 Options: Joyfully Accept, Regretfully Decline, TBD / Undecided) -->
         <div>
           <label class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-2">Will you be attending? *</label>
-          <div class="grid grid-cols-2 gap-3">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
             <!-- Joyfully Accept -->
-            <label class="group relative flex items-center justify-center p-3.5 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-emerald-50 hover:border-emerald-300 text-stone-700 text-sm font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-emerald-600 has-[:checked]:text-white has-[:checked]:border-emerald-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
+            <label class="group relative flex items-center justify-center p-3 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-emerald-50 hover:border-emerald-300 text-stone-700 text-xs font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-emerald-600 has-[:checked]:text-white has-[:checked]:border-emerald-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
               <input type="radio" name="attending" value="Yes" required class="sr-only" onchange="onAttendanceChange('Yes')">
-              <span class="flex items-center space-x-1.5">
-                <span class="text-base group-has-[:checked]:scale-110 transition-transform">🎉</span>
+              <span class="flex items-center space-x-1">
+                <span class="text-sm group-has-[:checked]:scale-110 transition-transform">🎉</span>
                 <span>Joyfully Accept</span>
               </span>
             </label>
 
+            <!-- TBD / Undecided -->
+            <label class="group relative flex items-center justify-center p-3 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-amber-50 hover:border-amber-300 text-stone-700 text-xs font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-amber-600 has-[:checked]:text-white has-[:checked]:border-amber-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
+              <input type="radio" name="attending" value="Pending" required class="sr-only" onchange="onAttendanceChange('Pending')">
+              <span class="flex items-center space-x-1">
+                <span class="text-sm group-has-[:checked]:scale-110 transition-transform">🤔</span>
+                <span>TBD / Undecided</span>
+              </span>
+            </label>
+
             <!-- Regretfully Decline -->
-            <label class="group relative flex items-center justify-center p-3.5 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-rose-50 hover:border-rose-300 text-stone-700 text-sm font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-rose-600 has-[:checked]:text-white has-[:checked]:border-rose-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
+            <label class="group relative flex items-center justify-center p-3 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-rose-50 hover:border-rose-300 text-stone-700 text-xs font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-rose-600 has-[:checked]:text-white has-[:checked]:border-rose-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
               <input type="radio" name="attending" value="No" required class="sr-only" onchange="onAttendanceChange('No')">
-              <span class="flex items-center space-x-1.5">
-                <span class="text-base group-has-[:checked]:scale-110 transition-transform">😞</span>
+              <span class="flex items-center space-x-1">
+                <span class="text-sm group-has-[:checked]:scale-110 transition-transform">😞</span>
                 <span>Regretfully Decline</span>
               </span>
             </label>
           </div>
         </div>
 
-        <!-- Potluck Category & Dish Section (Hidden if Regretfully Decline is selected) -->
+        <!-- Potluck Category & Dish Section (Only visible when Joyfully Accept is selected) -->
         <div id="dishSection" class="hidden space-y-4 pt-1">
           <!-- Category Selector Dropdown -->
           <div>
@@ -229,7 +238,7 @@
               <option value="" disabled selected>Select a category...</option>
             </select>
 
-            <!-- Pattern A: Contextual Category Preview Box (Neutral, Calm Palette) -->
+            <!-- Contextual Category Preview Box -->
             <div id="categoryPreview" class="hidden mt-2.5"></div>
           </div>
 
@@ -272,7 +281,7 @@
       <div id="statusMsg" class="hidden mt-4 p-4 rounded-xl text-center text-sm font-medium"></div>
     </div>
 
-    <!-- Collapsible Current Potluck Spread Section (Between RSVP and Guest List) -->
+    <!-- Collapsible Current Potluck Spread Section (Cleaned: Action buttons removed) -->
     <div id="spreadCollapsibleSection" class="bg-white rounded-2xl shadow-md border border-stone-200/90 overflow-hidden">
       <button 
         type="button" 
@@ -296,7 +305,7 @@
         </div>
       </button>
 
-      <!-- Expandable Spread Cards (Calm, Soft Neutral Styling) -->
+      <!-- Expandable Spread Content -->
       <div id="spreadCollapsibleContent" class="hidden px-6 sm:px-7 pb-7 border-t border-stone-100 pt-5 space-y-3.5">
         <!-- Rendered dynamically -->
       </div>
@@ -337,12 +346,10 @@
     let allCategories = [];
     let currentTab = 'Yes';
     
-    // Tracks if a returning guest currently holds an allotment in a category
     let currentGuestOriginalCategory = null;
     let activeReturningGuest = null;
     let toastTimer = null;
 
-    // Deterministic colorful gradients for guest avatars
     const AVATAR_GRADIENTS = [
       { bg: 'linear-gradient(135deg, #f87171, #e11d48)', text: '#ffffff' },
       { bg: 'linear-gradient(135deg, #fb923c, #ea580c)', text: '#ffffff' },
@@ -392,7 +399,6 @@
       return 'friendsgiving-2026';
     }
 
-    // 3-Second Toast Message
     function showToast(message) {
       const toast = document.getElementById('toastNotification');
       const msgEl = document.getElementById('toastMessage');
@@ -409,7 +415,6 @@
       }, 3000);
     }
 
-    // Helper: effective slot calculation with client-side returning-guest adjustment
     function getEffectiveRemaining(categoryName) {
       const cat = allCategories.find(c => c.name.toLowerCase() === categoryName.toLowerCase());
       if (!cat) return 0;
@@ -420,7 +425,6 @@
       return remaining;
     }
 
-    // Populate category select dropdown options
     function updateCategoryDropdown(preserveSelectedValue = true) {
       const select = document.getElementById('categorySelect');
       const currentSelected = preserveSelectedValue ? select.value : '';
@@ -453,7 +457,6 @@
       renderCategoryPreview();
     }
 
-    // Pattern A: Contextual Category Preview of already claimed dishes (Soft, neutral palette)
     function onCategorySelectChange() {
       renderCategoryPreview();
     }
@@ -511,7 +514,6 @@
       previewBox.classList.remove('hidden');
     }
 
-    // Toggle dish section based on Attendance selection
     function onAttendanceChange(status) {
       const dishSection = document.getElementById('dishSection');
       const categorySelect = document.getElementById('categorySelect');
@@ -528,7 +530,6 @@
       }
     }
 
-    // Collapsible "Current Potluck Spread" Section
     function toggleSpreadSection() {
       const content = document.getElementById('spreadCollapsibleContent');
       const chevron = document.getElementById('spreadChevron');
@@ -550,6 +551,7 @@
       document.getElementById('spreadCollapsibleSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
+    // Cleaned Spread Section (Displays claimed dishes/slots without claim action buttons)
     function renderSpreadSection() {
       const container = document.getElementById('spreadCollapsibleContent');
       const badge = document.getElementById('spreadTotalBadge');
@@ -606,47 +608,12 @@
             ` : `
               <p class="text-xs text-stone-400 italic">No dishes claimed yet.</p>
             `}
-
-            <div>
-              ${!isFull ? `
-                <button 
-                  type="button" 
-                  onclick="claimCategoryFromSpread('${escapeHtml(cat.name).replace(/'/g, "\\'")}')" 
-                  class="w-full mt-1 py-2 px-3 bg-stone-900 hover:bg-stone-800 text-white rounded-lg text-xs font-semibold transition-all shadow-xs flex items-center justify-center space-x-1 cursor-pointer"
-                >
-                  <span>Claim Open Slot in ${escapeHtml(cat.name)}</span>
-                  <span>→</span>
-                </button>
-              ` : `
-                <button disabled class="w-full mt-1 py-1.5 px-3 bg-stone-100 text-stone-400 rounded-lg text-xs font-medium cursor-not-allowed border border-stone-200">
-                  Category Full
-                </button>
-              `}
-            </div>
           </div>
         `;
       }).join('');
     }
 
-    function claimCategoryFromSpread(categoryName) {
-      // Ensure "Joyfully Accept" is selected
-      const yesRadio = document.querySelector('input[name="attending"][value="Yes"]');
-      if (yesRadio) {
-        yesRadio.checked = true;
-        onAttendanceChange('Yes');
-      }
-
-      const select = document.getElementById('categorySelect');
-      select.value = categoryName;
-      onCategorySelectChange();
-      
-      // Scroll smoothly up to the RSVP form
-      document.getElementById('rsvpForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      const specificDish = document.getElementById('specificDish');
-      setTimeout(() => { specificDish.focus(); }, 400);
-    }
-
-    // Page Load & API Ingestion
+    // Page Load & Data Fetching
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const guestName = urlParams.get('guest');
@@ -742,7 +709,7 @@
       }).join('');
     }
 
-    // Autocomplete & Returning Guest Logic
+    // Autocomplete & Pre-Populated / Returning Guest Logic
     const nameInput = document.getElementById('name');
     const suggestionsBox = document.getElementById('nameSuggestions');
 
@@ -799,7 +766,6 @@
       checkAndApplyReturningGuest(name);
     }
 
-    // Pre-fill returning guest choices and adjust capacity +1
     function checkAndApplyReturningGuest(typedName) {
       const submitBtn = document.getElementById('submitBtn');
       const cleanName = typedName.trim().toLowerCase();
@@ -808,17 +774,20 @@
       if (matched) {
         if (activeReturningGuest !== matched.name) {
           activeReturningGuest = matched.name;
-          currentGuestOriginalCategory = (matched.attending === 'Yes' && matched.category) ? matched.category : null;
-          submitBtn.innerText = 'Update Response';
+          
+          // Check if guest has previously submitted a definitive RSVP response
+          const hasSubmittedRSVP = matched.attending === 'Yes' || matched.attending === 'No';
 
-          // Pre-fill Attendance radio
+          currentGuestOriginalCategory = (matched.attending === 'Yes' && matched.category) ? matched.category : null;
+          submitBtn.innerText = hasSubmittedRSVP ? 'Update Response' : 'Submit Response';
+
+          // Pre-fill Attendance radio if available
           const form = document.getElementById('rsvpForm');
-          if (matched.attending === 'Yes' || matched.attending === 'No') {
+          if (matched.attending === 'Yes' || matched.attending === 'No' || matched.attending === 'Pending') {
             form.elements['attending'].value = matched.attending;
             onAttendanceChange(matched.attending);
           }
 
-          // Recalculate dropdown with returning guest's held slot available
           updateCategoryDropdown(false);
 
           if (matched.category) {
@@ -833,16 +802,18 @@
           }
 
           renderSpreadSection();
-          showToast(`Welcome back, ${matched.name}! Loaded your previous response.`);
+
+          // Only display "Welcome back!" toast for returning guests who previously completed their RSVP
+          if (hasSubmittedRSVP) {
+            showToast(`Welcome back, ${matched.name}! Loaded your previous response.`);
+          }
         }
       } else {
-        // If the name is changed and no longer matches a returning guest:
         if (activeReturningGuest !== null) {
           activeReturningGuest = null;
           currentGuestOriginalCategory = null;
           submitBtn.innerText = 'Submit Response';
 
-          // UNPRESS attendance buttons & clear dish fields
           const attendingRadios = document.querySelectorAll('input[name="attending"]');
           attendingRadios.forEach(r => { r.checked = false; });
           onAttendanceChange(null);
@@ -903,7 +874,6 @@
           : "Thank you! Your RSVP has been recorded.";
         statusMsg.classList.remove('hidden');
 
-        // Reset returning guest status and form
         activeReturningGuest = null;
         currentGuestOriginalCategory = null;
         submitBtn.innerText = 'Submit Response';
@@ -925,6 +895,4 @@
     });
   </script>
 </body>
-</html>
-
 </html>
