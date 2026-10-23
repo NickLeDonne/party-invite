@@ -217,7 +217,7 @@
           <div>
             <div class="flex items-center justify-between mb-1.5">
               <label for="categorySelect" class="block text-xs font-bold uppercase tracking-wider text-stone-500">
-                Potluck Category
+                Potluck Dish Category *
               </label>
               <button 
                 type="button" 
@@ -248,10 +248,10 @@
             <div id="categoryPreview" class="hidden mt-2.5"></div>
           </div>
 
-          <!-- Specific Dish Input -->
-          <div>
+          <!-- Specific Dish Input (Hidden until a category other than Undecided is chosen) -->
+          <div id="dishInputContainer" class="hidden">
             <label for="specificDish" class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-1.5">
-              Specific Dish Bringing <span id="dishLabelRequired" class="text-stone-500">*</span><span id="dishLabelOptional" class="hidden text-stone-400 font-normal lowercase">(optional)</span>
+              Specific Dish Bringing *
             </label>
             <input 
               type="text" 
