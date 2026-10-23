@@ -720,7 +720,14 @@
       const matches = allGuests.filter(g => g.name.toLowerCase().includes(query));
       if (matches.length === 0) {
         suggestionsBox.classList.add('hidden');
-        checkAndApplyReturningGuest(e.targetlined' : 'Pending');
+        checkAndApplyReturningGuest(e.target.value);
+        return;
+      }
+
+      suggestionsBox.innerHTML = matches.map(g => {
+        const gradient = getGuestGradient(g.name);
+        const initials = getInitials(g.name);
+        const guestStatus = g.attending === 'Yes' ? 'Attending' : (g.attending === 'No' ? 'Declined' : 'Pending');
         const badgeClasses = g.attending === 'Yes'
           ? 'bg-emerald-100 text-emerald-800 border-emerald-200'
           : (g.attending === 'No'
