@@ -85,8 +85,7 @@ function doGet(e) {
   var data = sheet.getDataRange().getValues();
   var guests = [];
 
-  // Skip header row (row 1)
-  // Column mapping:
+  // Sheet columns mapping (1-indexed vs 0-indexed array):
   // Col A (0): Timestamp
   // Col B (1): Guest Name
   // Col C (2): Attending
@@ -96,27 +95,27 @@ function doGet(e) {
   for (var i = 1; i < data.length; i++) {
     var name = (data[i][1] || '').toString().trim();
     var attending = (data[i][2] || 'Pending').toString().trim();
-    var parsedDish = (data[i][3] || '').toString().trim();
-    var parsedCat = (data[i][4] || '').toString().trim();
+    var dish = (data[i][3] || '').toString().trim();
+    var category = (data[i][4] || '').toString().trim();
     var notes = (data[i][5] || '').toString().trim();
 
     if (name) {
       var guestObj = {
         name: name,
         attending: attending,
-        category: parsedCat,
-        dish: parsedDish,
+        category: category,
+        dish: dish,
         notes: notes
       };
       guests.push(guestObj);
 
-      // Only count claimed slots for confirmed attendees with a category
-      if (attending.toLowerCase() === 'yes' && parsedCat) {
-        var catKey = parsedCat.toLowerCase();
+      // Count claimed slots for confirmed attendees with a valid category
+      if (attending.toLowerCase() === 'yes' && category && category.toLowerCase() !== 'undecided') {
+        var catKey = category.toLowerCase();
         if (categoriesMap[catKey]) {
           categoriesMap[catKey].dishes.push({
             guest: name,
-            dish: parsedDish || parsedCat
+            dish: dish || category
           });
         }
       }
@@ -165,19 +164,17 @@ function doPost(e) {
     }
   }
 
-  // Format fields based on attendance
   var dishVal = "";
   var categoryVal = "";
   var notesVal = "";
 
-  if (data.attending && (data.attending.toString().trim().toLowerCase() === 'no' || data.attending.toString().trim().toLowerCase() === 'pending')) {
-    // If declining or TBD, clear dish and category fields
+  if (data.attending && data.attending.toString().trim().toLowerCase() === 'no') {
     dishVal = "";
     categoryVal = "";
-    notesVal = (data.notes || "").toString().trim();
+    notesVal = "";
   } else {
     dishVal = (data.dish || "").toString().trim();
-    categoryVal = (data.category || "").toString().trim();
+    categoryVal = (data.category && data.category !== 'Undecided') ? data.category.trim() : "";
     notesVal = (data.notes || "").toString().trim();
   }
 
