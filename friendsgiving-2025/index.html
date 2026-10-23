@@ -18,6 +18,14 @@
 </head>
 <body class="text-stone-800 min-h-screen flex flex-col justify-between py-6 sm:py-10">
 
+  <!-- 3-Second Toast Notification for Returning Guests -->
+  <div id="toastNotification" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 opacity-0 pointer-events-none -translate-y-2">
+    <div class="flex items-center space-x-2 px-4 py-2.5 bg-stone-900/95 text-white text-xs font-medium rounded-full shadow-lg border border-stone-700/60 backdrop-blur-xs">
+      <span class="text-sm">✏️</span>
+      <span id="toastMessage">Welcome back!</span>
+    </div>
+  </div>
+
   <main class="max-w-xl mx-auto w-full px-4 space-y-6 mb-8">
     
     <!-- Hero / Event Details Card -->
@@ -169,15 +177,6 @@
         <p class="text-xs text-stone-500 font-medium mt-1">Let Nick & Kelsey know if you can make it!</p>
       </div>
 
-      <!-- Returning Guest Notice Banner -->
-      <div id="welcomeBackBanner" class="hidden mb-5 p-3.5 bg-amber-50 border border-amber-200/90 rounded-xl text-xs font-semibold text-amber-900 flex items-center justify-between shadow-xs">
-        <div class="flex items-center space-x-2">
-          <span class="text-base">✏️</span>
-          <span>Welcome back, <strong id="welcomeGuestName">Guest</strong>! Updating your existing response.</span>
-        </div>
-        <button type="button" onclick="clearSelectedGuest()" class="text-[11px] text-amber-700 hover:text-amber-900 underline font-normal ml-2">Clear</button>
-      </div>
-
       <form id="rsvpForm" class="space-y-5">
         <!-- Name Input with Autocomplete Dropdown -->
         <div class="relative">
@@ -219,7 +218,7 @@
         </div>
 
         <!-- Potluck Category & Dish Section (Hidden if Regretfully Decline is selected) -->
-        <div id="dishSection" class="space-y-4 pt-1">
+        <div id="dishSection" class="hidden space-y-4 pt-1">
           <!-- Category Selector Dropdown -->
           <div>
             <div class="flex items-center justify-between mb-1.5">
@@ -228,25 +227,24 @@
               </label>
               <button 
                 type="button" 
-                onclick="openSpreadModal()" 
-                class="text-xs font-bold text-amber-700 hover:text-amber-800 hover:underline flex items-center space-x-1 cursor-pointer transition-colors"
+                onclick="openSpreadSection()" 
+                class="text-xs font-semibold text-stone-500 hover:text-stone-800 hover:underline flex items-center space-x-1 cursor-pointer transition-colors"
               >
                 <span>🍽️</span>
-                <span>Browse Current Spread</span>
+                <span>View Spread Below</span>
               </button>
             </div>
             
             <select 
               id="categorySelect" 
               name="category" 
-              required
               onchange="onCategorySelectChange()" 
               class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none text-sm transition-all shadow-xs bg-white text-stone-800 font-medium"
             >
               <option value="" disabled selected>Select a category...</option>
             </select>
 
-            <!-- Pattern A: Contextual Category Preview Box -->
+            <!-- Pattern A: Contextual Category Preview Box (Neutral, Calm Palette) -->
             <div id="categoryPreview" class="hidden mt-2.5"></div>
           </div>
 
@@ -259,7 +257,6 @@
               type="text" 
               id="specificDish" 
               name="dish" 
-              required
               placeholder="What specific dish or board are you bringing? (e.g. Charcuterie, Dessert)" 
               class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none text-sm transition-all shadow-xs"
             >
@@ -290,6 +287,36 @@
       <div id="statusMsg" class="hidden mt-4 p-4 rounded-xl text-center text-sm font-medium"></div>
     </div>
 
+    <!-- Collapsible Current Potluck Spread Section (Between RSVP and Guest List) -->
+    <div id="spreadCollapsibleSection" class="bg-white rounded-2xl shadow-md border border-stone-200/90 overflow-hidden">
+      <button 
+        type="button" 
+        onclick="toggleSpreadSection()" 
+        class="w-full p-6 sm:p-7 flex items-center justify-between text-left hover:bg-stone-50/70 transition-colors cursor-pointer"
+      >
+        <div class="space-y-0.5">
+          <div class="flex items-center space-x-2">
+            <span class="text-lg">🍽️</span>
+            <h2 class="text-xl font-bold text-stone-900">Current Potluck Spread</h2>
+          </div>
+          <p class="text-xs text-stone-500 font-medium">Explore claimed dishes and open category slots</p>
+        </div>
+        <div class="flex items-center space-x-3">
+          <span id="spreadTotalBadge" class="text-xs font-semibold bg-stone-100 text-stone-600 px-3 py-1 rounded-full border border-stone-200/70">
+            Loading...
+          </span>
+          <svg id="spreadChevron" class="w-5 h-5 text-stone-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+      </button>
+
+      <!-- Expandable Spread Cards (Calm, Soft Neutral Styling) -->
+      <div id="spreadCollapsibleContent" class="hidden px-6 sm:px-7 pb-7 border-t border-stone-100 pt-5 space-y-3.5">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
     <!-- Guest List Display Card -->
     <div class="bg-white rounded-2xl shadow-md border border-stone-200/90 p-6 sm:p-8">
       <div class="flex items-center justify-between mb-6">
@@ -315,45 +342,6 @@
 
   </main>
 
-  <!-- "Browse Current Spread" Modal -->
-  <div id="spreadModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs transition-opacity">
-    <div class="bg-white rounded-2xl shadow-2xl border border-stone-200 w-full max-w-lg max-h-[85vh] flex flex-col overflow-hidden">
-      <!-- Modal Header -->
-      <div class="p-5 border-b border-stone-200 flex items-center justify-between bg-stone-50/90">
-        <div>
-          <h3 class="text-lg font-bold text-stone-900 flex items-center space-x-2">
-            <span>🍽️</span>
-            <span>Current Potluck Spread</span>
-          </h3>
-          <p class="text-xs text-stone-500 mt-0.5">Explore open slots and dishes currently claimed by guests</p>
-        </div>
-        <button 
-          type="button" 
-          onclick="closeSpreadModal()" 
-          class="w-8 h-8 rounded-full bg-stone-200 text-stone-600 hover:bg-stone-300 flex items-center justify-center font-bold text-sm transition-colors cursor-pointer"
-        >
-          ✕
-        </button>
-      </div>
-
-      <!-- Modal Body (Scrollable Category Cards) -->
-      <div id="spreadModalContent" class="p-5 overflow-y-auto space-y-4">
-        <!-- Rendered dynamically -->
-      </div>
-
-      <!-- Modal Footer -->
-      <div class="p-4 border-t border-stone-200 bg-stone-50 text-right">
-        <button 
-          type="button" 
-          onclick="closeSpreadModal()" 
-          class="px-4 py-2 bg-stone-200 hover:bg-stone-300 text-stone-800 rounded-xl text-xs font-bold transition-colors"
-        >
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-
   <footer class="py-6 text-center text-xs text-stone-400 font-medium">
     Friendsgiving 2025 • Nick + Kelsey
   </footer>
@@ -366,6 +354,8 @@
     
     // Tracks if a returning guest currently holds an allotment in a category
     let currentGuestOriginalCategory = null;
+    let activeReturningGuest = null;
+    let toastTimer = null;
 
     // Deterministic colorful gradients for guest avatars
     const AVATAR_GRADIENTS = [
@@ -417,6 +407,23 @@
       return 'friendsgiving-2025';
     }
 
+    // 3-Second Toast Message
+    function showToast(message) {
+      const toast = document.getElementById('toastNotification');
+      const msgEl = document.getElementById('toastMessage');
+      msgEl.innerText = message;
+
+      if (toastTimer) clearTimeout(toastTimer);
+
+      toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+      }, 3000);
+    }
+
     // Helper: effective slot calculation with client-side returning-guest adjustment
     function getEffectiveRemaining(categoryName) {
       const cat = allCategories.find(c => c.name.toLowerCase() === categoryName.toLowerCase());
@@ -461,7 +468,7 @@
       renderCategoryPreview();
     }
 
-    // Pattern A: Contextual Category Preview of already claimed dishes
+    // Pattern A: Contextual Category Preview of already claimed dishes (Soft, neutral palette)
     function onCategorySelectChange() {
       renderCategoryPreview();
     }
@@ -487,35 +494,34 @@
       const remaining = getEffectiveRemaining(cat.name);
 
       if (dishes.length === 0) {
-        previewBox.className = 'mt-2.5 p-3 bg-emerald-50 border border-emerald-200/80 rounded-xl text-xs text-emerald-800 flex items-center justify-between';
+        previewBox.className = 'mt-2.5 p-3 bg-stone-50 border border-stone-200 rounded-xl text-xs text-stone-700 flex items-center justify-between';
         previewBox.innerHTML = `
-          <span class="font-medium">✨ You will be the first to claim a dish in <strong>${escapeHtml(cat.name)}</strong>!</span>
-          <span class="text-[11px] font-bold bg-emerald-100 text-emerald-900 px-2.5 py-0.5 rounded-full">${cat.max} slots open</span>
+          <span class="font-medium">✨ Be the first to claim a dish in <strong>${escapeHtml(cat.name)}</strong>!</span>
+          <span class="text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/70 px-2 py-0.5 rounded-full">${cat.max} slots open</span>
         `;
         previewBox.classList.remove('hidden');
         return;
       }
 
-      previewBox.className = 'mt-2.5 p-3.5 bg-amber-50/90 border border-amber-200 rounded-xl text-xs space-y-2';
+      previewBox.className = 'mt-2.5 p-3.5 bg-stone-50 border border-stone-200 rounded-xl text-xs space-y-2';
       previewBox.innerHTML = `
-        <div class="flex items-center justify-between text-amber-950 font-bold">
+        <div class="flex items-center justify-between text-stone-800 font-bold">
           <span class="flex items-center space-x-1.5">
             <span>📋</span>
-            <span>Already on the menu for <span class="underline decoration-amber-400">${escapeHtml(cat.name)}</span>:</span>
+            <span>Already on the menu for <span class="text-stone-900 underline decoration-stone-300">${escapeHtml(cat.name)}</span>:</span>
           </span>
-          <span class="text-[11px] font-bold text-amber-900 bg-amber-100 px-2.5 py-0.5 rounded-full border border-amber-200/80">
+          <span class="text-[11px] font-semibold text-stone-600 bg-stone-200/70 px-2.5 py-0.5 rounded-full border border-stone-200/60">
             ${remaining} slot${remaining === 1 ? '' : 's'} left
           </span>
         </div>
-        <ul class="divide-y divide-amber-100/80 pl-1 text-stone-700">
+        <ul class="divide-y divide-stone-200/60 pl-1 text-stone-700">
           ${dishes.map(d => `
             <li class="flex items-center justify-between py-1 text-xs">
               <span class="font-medium text-stone-900">• ${escapeHtml(d.guest)}</span>
-              <span class="text-stone-600 italic font-normal">${escapeHtml(d.dish || 'Dish')}</span>
+              <span class="text-stone-500 italic font-normal">${escapeHtml(d.dish || 'Dish')}</span>
             </li>
           `).join('')}
         </ul>
-        <p class="text-[11px] text-amber-800/90 pt-0.5 font-medium">💡 Tip: Check the dishes above to avoid duplicates!</p>
       `;
       previewBox.classList.remove('hidden');
     }
@@ -537,78 +543,107 @@
       }
     }
 
-    // "Browse Current Spread" Modal logic
-    function openSpreadModal() {
-      const modal = document.getElementById('spreadModal');
-      const content = document.getElementById('spreadModalContent');
-
-      if (allCategories.length === 0) {
-        content.innerHTML = '<p class="text-sm text-stone-400 italic text-center py-6">Loading potluck spread...</p>';
+    // Collapsible "Current Potluck Spread" Section
+    function toggleSpreadSection() {
+      const content = document.getElementById('spreadCollapsibleContent');
+      const chevron = document.getElementById('spreadChevron');
+      const isHidden = content.classList.contains('hidden');
+      if (isHidden) {
+        content.classList.remove('hidden');
+        chevron.classList.add('rotate-180');
       } else {
-        content.innerHTML = allCategories.map(cat => {
-          const remaining = getEffectiveRemaining(cat.name);
-          const isFull = remaining <= 0;
-          const dishes = cat.dishes || [];
-
-          return `
-            <div class="p-4 rounded-xl border ${isFull ? 'bg-stone-50 border-stone-200' : 'bg-amber-50/50 border-amber-200/80'} space-y-2.5">
-              <div class="flex items-center justify-between">
-                <h4 class="font-bold text-sm text-stone-900">${escapeHtml(cat.name)}</h4>
-                <span class="text-xs font-bold px-2.5 py-0.5 rounded-full border ${
-                  isFull 
-                    ? 'bg-stone-200 text-stone-600 border-stone-300' 
-                    : 'bg-emerald-100 text-emerald-800 border-emerald-200'
-                }">
-                  ${isFull ? 'FULL (0 open)' : `${remaining} of ${cat.max} open`}
-                </span>
-              </div>
-
-              ${dishes.length > 0 ? `
-                <div class="space-y-1">
-                  <p class="text-[11px] font-bold text-stone-400 uppercase tracking-wider">Claimed dishes:</p>
-                  <ul class="text-xs space-y-1 pl-1 text-stone-700">
-                    ${dishes.map(d => `
-                      <li class="flex justify-between">
-                        <span class="font-medium text-stone-900">${escapeHtml(d.guest)}</span>
-                        <span class="text-stone-500 italic">${escapeHtml(d.dish || 'Dish')}</span>
-                      </li>
-                    `).join('')}
-                  </ul>
-                </div>
-              ` : `
-                <p class="text-xs text-stone-400 italic">No dishes claimed yet.</p>
-              `}
-
-              <div>
-                ${!isFull ? `
-                  <button 
-                    type="button" 
-                    onclick="claimCategoryFromSpread('${escapeHtml(cat.name).replace(/'/g, "\\'")}')" 
-                    class="w-full mt-1 py-2 px-3 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-bold transition-all shadow-xs flex items-center justify-center space-x-1"
-                  >
-                    <span>Claim Open Slot in ${escapeHtml(cat.name)}</span>
-                    <span>→</span>
-                  </button>
-                ` : `
-                  <button disabled class="w-full mt-1 py-1.5 px-3 bg-stone-100 text-stone-400 rounded-lg text-xs font-medium cursor-not-allowed border border-stone-200">
-                    Category Full
-                  </button>
-                `}
-              </div>
-            </div>
-          `;
-        }).join('');
+        content.classList.add('hidden');
+        chevron.classList.remove('rotate-180');
       }
-
-      modal.classList.remove('hidden');
     }
 
-    function closeSpreadModal() {
-      document.getElementById('spreadModal').classList.add('hidden');
+    function openSpreadSection() {
+      const content = document.getElementById('spreadCollapsibleContent');
+      const chevron = document.getElementById('spreadChevron');
+      content.classList.remove('hidden');
+      chevron.classList.add('rotate-180');
+      document.getElementById('spreadCollapsibleSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function renderSpreadSection() {
+      const container = document.getElementById('spreadCollapsibleContent');
+      const badge = document.getElementById('spreadTotalBadge');
+      if (!container) return;
+
+      if (allCategories.length === 0) {
+        container.innerHTML = '<p class="text-sm text-stone-400 italic text-center py-4">Loading potluck categories...</p>';
+        if (badge) badge.innerText = 'Loading...';
+        return;
+      }
+
+      let totalMax = 0;
+      let totalClaimed = 0;
+
+      allCategories.forEach(c => {
+        totalMax += (c.max || 0);
+        totalClaimed += (c.dishes || []).length;
+      });
+
+      if (badge) {
+        badge.innerText = `${totalClaimed} of ${totalMax} Claimed`;
+      }
+
+      container.innerHTML = allCategories.map(cat => {
+        const remaining = getEffectiveRemaining(cat.name);
+        const isFull = remaining <= 0;
+        const dishes = cat.dishes || [];
+
+        return `
+          <div class="p-4 rounded-xl border ${isFull ? 'bg-stone-50 border-stone-200' : 'bg-stone-50/70 border-stone-200/80'} space-y-2.5">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-sm text-stone-900">${escapeHtml(cat.name)}</h4>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full border ${
+                isFull 
+                  ? 'bg-stone-200/60 text-stone-500 border-stone-200' 
+                  : 'bg-emerald-50 text-emerald-800 border-emerald-200/70'
+              }">
+                ${isFull ? 'FULL (0 open)' : `${remaining} of ${cat.max} open`}
+              </span>
+            </div>
+
+            ${dishes.length > 0 ? `
+              <div class="space-y-1">
+                <p class="text-[11px] font-bold text-stone-400 uppercase tracking-wider">Claimed dishes:</p>
+                <ul class="text-xs space-y-1 pl-1 text-stone-700">
+                  ${dishes.map(d => `
+                    <li class="flex justify-between py-0.5 border-b border-stone-150 last:border-none">
+                      <span class="font-medium text-stone-900">• ${escapeHtml(d.guest)}</span>
+                      <span class="text-stone-500 italic">${escapeHtml(d.dish || 'Dish')}</span>
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+            ` : `
+              <p class="text-xs text-stone-400 italic">No dishes claimed yet.</p>
+            `}
+
+            <div>
+              ${!isFull ? `
+                <button 
+                  type="button" 
+                  onclick="claimCategoryFromSpread('${escapeHtml(cat.name).replace(/'/g, "\\'")}')" 
+                  class="w-full mt-1 py-2 px-3 bg-stone-900 hover:bg-stone-800 text-white rounded-lg text-xs font-semibold transition-all shadow-xs flex items-center justify-center space-x-1 cursor-pointer"
+                >
+                  <span>Claim Open Slot in ${escapeHtml(cat.name)}</span>
+                  <span>→</span>
+                </button>
+              ` : `
+                <button disabled class="w-full mt-1 py-1.5 px-3 bg-stone-100 text-stone-400 rounded-lg text-xs font-medium cursor-not-allowed border border-stone-200">
+                  Category Full
+                </button>
+              `}
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
     function claimCategoryFromSpread(categoryName) {
-      closeSpreadModal();
       // Ensure "Joyfully Accept" is selected
       const yesRadio = document.querySelector('input[name="attending"][value="Yes"]');
       if (yesRadio) {
@@ -620,17 +655,11 @@
       select.value = categoryName;
       onCategorySelectChange();
       
+      // Scroll smoothly up to the RSVP form
+      document.getElementById('rsvpForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
       const specificDish = document.getElementById('specificDish');
-      specificDish.focus();
+      setTimeout(() => { specificDish.focus(); }, 400);
     }
-
-    // Close modal on escape or outer click
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeSpreadModal();
-    });
-    document.getElementById('spreadModal').addEventListener('click', (e) => {
-      if (e.target.id === 'spreadModal') closeSpreadModal();
-    });
 
     // Page Load & API Ingestion
     window.addEventListener('DOMContentLoaded', () => {
@@ -663,6 +692,7 @@
         updateGuestCounts();
         renderGuestList();
         updateCategoryDropdown(true);
+        renderSpreadSection();
       } catch (err) {
         container.innerHTML = '<p class="text-sm text-stone-400 text-center py-4">Unable to load guest list.</p>';
       }
@@ -784,56 +814,62 @@
       checkAndApplyReturningGuest(name);
     }
 
-    function clearSelectedGuest() {
-      nameInput.value = '';
-      currentGuestOriginalCategory = null;
-      document.getElementById('welcomeBackBanner').classList.add('hidden');
-      document.getElementById('submitBtn').innerText = 'Submit Response';
-      document.getElementById('rsvpForm').reset();
-      onAttendanceChange(null);
-      updateCategoryDropdown(false);
-    }
-
     // Pre-fill returning guest choices and adjust capacity +1
     function checkAndApplyReturningGuest(typedName) {
-      const banner = document.getElementById('welcomeBackBanner');
       const submitBtn = document.getElementById('submitBtn');
-      const matched = allGuests.find(g => g.name.toLowerCase() === typedName.trim().toLowerCase());
+      const cleanName = typedName.trim().toLowerCase();
+      const matched = allGuests.find(g => g.name.toLowerCase() === cleanName);
 
       if (matched) {
-        currentGuestOriginalCategory = (matched.attending === 'Yes' && matched.category) ? matched.category : null;
-        
-        document.getElementById('welcomeGuestName').innerText = matched.name;
-        banner.classList.remove('hidden');
-        submitBtn.innerText = 'Update Response';
+        if (activeReturningGuest !== matched.name) {
+          activeReturningGuest = matched.name;
+          currentGuestOriginalCategory = (matched.attending === 'Yes' && matched.category) ? matched.category : null;
+          submitBtn.innerText = 'Update Response';
 
-        // Pre-fill Attendance radio
-        const form = document.getElementById('rsvpForm');
-        if (matched.attending === 'Yes' || matched.attending === 'No') {
-          form.elements['attending'].value = matched.attending;
-          onAttendanceChange(matched.attending);
-        }
+          // Pre-fill Attendance radio
+          const form = document.getElementById('rsvpForm');
+          if (matched.attending === 'Yes' || matched.attending === 'No') {
+            form.elements['attending'].value = matched.attending;
+            onAttendanceChange(matched.attending);
+          }
 
-        // Recalculate dropdown with returning guest's held slot available
-        updateCategoryDropdown(false);
+          // Recalculate dropdown with returning guest's held slot available
+          updateCategoryDropdown(false);
 
-        // Pre-fill Category & Specific Dish
-        if (matched.category) {
-          const select = document.getElementById('categorySelect');
-          select.value = matched.category;
-          renderCategoryPreview();
-        }
-        if (matched.dish) {
-          document.getElementById('specificDish').value = matched.dish;
-        }
-        if (matched.notes) {
-          document.getElementById('notes').value = matched.notes;
+          if (matched.category) {
+            document.getElementById('categorySelect').value = matched.category;
+            renderCategoryPreview();
+          }
+          if (matched.dish) {
+            document.getElementById('specificDish').value = matched.dish;
+          }
+          if (matched.notes) {
+            document.getElementById('notes').value = matched.notes;
+          }
+
+          renderSpreadSection();
+          showToast(`Welcome back, ${matched.name}! Loaded your previous response.`);
         }
       } else {
-        currentGuestOriginalCategory = null;
-        banner.classList.add('hidden');
-        submitBtn.innerText = 'Submit Response';
-        updateCategoryDropdown(true);
+        // If the name is changed and no longer matches a returning guest:
+        if (activeReturningGuest !== null) {
+          activeReturningGuest = null;
+          currentGuestOriginalCategory = null;
+          submitBtn.innerText = 'Submit Response';
+
+          // UNPRESS attendance buttons & clear dish fields
+          const attendingRadios = document.querySelectorAll('input[name="attending"]');
+          attendingRadios.forEach(r => { r.checked = false; });
+          onAttendanceChange(null);
+
+          document.getElementById('categorySelect').value = '';
+          document.getElementById('specificDish').value = '';
+          document.getElementById('notes').value = '';
+
+          updateCategoryDropdown(false);
+          renderCategoryPreview();
+          renderSpreadSection();
+        }
       }
     }
 
@@ -882,12 +918,17 @@
           : "Thank you! Your RSVP has been recorded.";
         statusMsg.classList.remove('hidden');
 
-        // Reset returning guest status and re-fetch list and allotments
+        // Reset returning guest status and form
+        activeReturningGuest = null;
         currentGuestOriginalCategory = null;
-        document.getElementById('welcomeBackBanner').classList.add('hidden');
         submitBtn.innerText = 'Submit Response';
         form.reset();
+
+        const attendingRadios = document.querySelectorAll('input[name="attending"]');
+        attendingRadios.forEach(r => { r.checked = false; });
         onAttendanceChange(null);
+        renderCategoryPreview();
+
         await fetchGuestList();
       } catch (err) {
         statusMsg.className = 'mt-4 p-4 rounded-xl text-center text-sm font-semibold bg-rose-50 text-rose-800 border border-rose-200';
