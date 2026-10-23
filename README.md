@@ -54,6 +54,21 @@ When deploying the script from Google Sheets, use the following settings:
 * **Execute as:** `Me`
 * **Who has access:** `Anyone`
 
+### 🥗 Potluck Category Configuration (`categories-config` tab)
+
+Category limits and slot allotments are configured via a dedicated `categories-config` tab in your Google Sheet (auto-created if not already present):
+
+| Event Tab Name      | Category Name        | Max Slots |
+| :------------------ | :------------------- | :-------- |
+| friendsgiving-2026  | Savory Sides / Mains | 6         |
+| friendsgiving-2026  | Appetizers           | 4         |
+| friendsgiving-2026  | Desserts             | 3         |
+| friendsgiving-2026  | Drinks & Ice         | 4         |
+
+* **Dynamic Capacity:** `doGet` in `Code.gs` checks how many confirmed attendees (`Attending: "Yes"`) have claimed each category, calculating remaining slots in real time.
+* **Return Guest Pre-fill & Updating:** Returning guests who select their name can edit their dish or category without triggering false "category full" errors. If a guest switches categories, their previous slot is released and their new selection claimed.
+* **Declining:** If a guest switches attendance to "No", their held category slot is released back to the open pool.
+
 ## 🛠️ How to Make Updates Down the Line
 
 ### Adding a New Event
