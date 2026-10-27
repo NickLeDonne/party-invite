@@ -6,898 +6,936 @@
   <title>Friendsgiving Potluck (2026)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-	@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-	body {
-  	font-family: 'Inter', sans-serif;
-  	background-color: #ffffff;
-  	background-image: url('pattern.svg');
-  	background-repeat: repeat;
-  	background-position: top center;
-	}
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    background-image: url('pattern.svg');
+    background-repeat: repeat;
+    background-position: top center;
+  }
   </style>
 </head>
 <body class="text-stone-800 min-h-screen flex flex-col justify-between py-6 sm:py-10">
   <!-- 3-Second Toast Notification for Returning Guests -->
   <div id="toastNotification" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 opacity-0 pointer-events-none -translate-y-2">
-	<div class="flex items-center space-x-2 px-4 py-2.5 bg-stone-900/95 text-white text-xs font-medium rounded-full shadow-lg border border-stone-700/60 backdrop-blur-xs">
-  	<span class="text-sm">✏️</span>
-  	<span id="toastMessage">Welcome back!</span>
-	</div>
-  </div>
-  <main class="max-w-xl mx-auto w-full px-4 space-y-6 mb-8">
-	<!-- Hero / Event Details Card -->
-	<div class="bg-white rounded-2xl shadow-md border border-stone-200/90 overflow-hidden">
-  	<div class="relative w-full h-48 sm:h-64 bg-amber-100 overflow-hidden">
-    	<img
-      	id="eventBanner"
-      	src="banner.png?v=2"
-      	alt="Friendsgiving Potluck Banner"
-      	class="w-full h-full object-cover"
-      	onerror="this.onerror=null; this.src='https://cdn.partey.io/uploads/header/kswTXwLyXEYY/header.jpg?v=1760403483373';"
-    	/>
-  	</div>
-  	<div class="p-6 sm:p-8 space-y-6">
-    	<div class="flex items-center space-x-4">
-      	<div class="flex flex-col items-center justify-center bg-amber-50 border-2 border-amber-200/80 rounded-2xl px-3 py-2 min-w-[70px] shadow-sm text-center shrink-0">
-        	<span class="text-xs font-bold uppercase tracking-wider text-amber-700">NOV</span>
-        	<span class="text-3xl font-extrabold text-stone-900 leading-none my-0.5">21</span>
-        	<span class="text-[10px] font-bold text-stone-500 uppercase">2026</span>
-      	</div>
-      	<div>
-        	<h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 leading-tight">
-          	Friendsgiving Potluck
-        	</h1>
-        	<p class="text-sm text-stone-600 font-medium mt-1">
-          	Hosted by <span class="text-stone-900 font-semibold">Nick + Kelsey</span>
-        	</p>
-      	</div>
-    	</div>
-    	<div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
-      	<div class="flex items-start space-x-3 p-3.5 rounded-xl bg-stone-50 border border-stone-200/70">
-        	<div class="bg-amber-100 text-amber-800 p-2.5 rounded-xl shrink-0">
-          	<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-          	</svg>
-        	</div>
-        	<div>
-          	<h2 class="text-xs font-bold uppercase text-stone-400 tracking-wider">When</h2>
-          	<p class="text-sm font-bold text-stone-800 mt-0.5">Saturday, Nov 21, 2026</p>
-          	<p class="text-xs text-stone-500 mt-0.5">Starts 4:00 PM CST (Food at 5:00 PM)</p>
-        	</div>
-      	</div>
-      	<div class="flex items-start space-x-3 p-3.5 rounded-xl bg-stone-50 border border-stone-200/70">
-        	<div class="bg-amber-100 text-amber-800 p-2.5 rounded-xl shrink-0">
-          	<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-            	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-          	</svg>
-        	</div>
-        	<div>
-          	<h2 class="text-xs font-bold uppercase text-stone-400 tracking-wider">Where</h2>
-          	<a href="https://maps.google.com/?q=4034+Pompton+Ct,+Elgin,+IL+60124" target="_blank" rel="noopener noreferrer" class="group block mt-0.5">
-            	<p class="text-sm font-bold text-stone-800 group-hover:text-amber-800 underline transition-colors">4034 Pompton Ct</p>
-            	<p class="text-xs text-stone-500 group-hover:text-amber-800 underline transition-colors">Elgin, IL 60124</p>
-          	</a>
-        	</div>
-      	</div>
-    	</div>
-    	<div class="pt-1">
-      	<a id="calLink" href="#" target="_blank" class="w-full inline-flex justify-center items-center py-2.5 px-4 border-2 border-stone-300 rounded-xl text-xs font-bold text-stone-700 bg-white hover:bg-stone-50 hover:border-stone-400 transition-all shadow-xs">
-        	<svg class="w-4 h-4 mr-2 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-        	</svg>
-        	Add to Google Calendar
-      	</a>
-    	</div>
-  	</div>
-	</div>
-	<!-- Event Guidelines Card -->
-	<div class="bg-white rounded-2xl shadow-md border border-stone-200/90 p-6 sm:p-8 space-y-6">
-  	<div class="bg-amber-50/80 border border-amber-200/80 rounded-xl p-4">
-    	<h3 class="text-base font-bold text-amber-900 mb-1 flex items-center space-x-1.5">
-      	<span>📅</span>
-      	<span> </span>
-      	<span> </span>
-      	<span>Please RSVP by Monday, Nov 16 and sign up for a potluck dish below!</span>
-    	</h3>
-  	</div>
-  	<div>
-    	<h3 class="text-base font-bold text-stone-900 mb-2 flex items-center space-x-2">
-      	<span>🍹</span>
-      	<span>Drinks</span>
-    	</h3>
-    	<p class="text-sm text-stone-600 leading-relaxed">
-      	We'll have a signature cocktail, hard seltzers, and bourbon to share. There will be some nonalcoholic beverages/soda as well, but otherwise bring what you'd like to drink.
-    	</p>
-  	</div>
-  	<hr class="border-stone-100">
-  	<div>
-    	<h3 class="text-base font-bold text-stone-900 mb-3 flex items-center space-x-2">
-      	<span>📍</span>
-      	<span>Day-Of Info</span>
-    	</h3>
-    	<div class="space-y-3 text-sm text-stone-600">
-      	<div>
-        	<span class="font-bold text-stone-800">Timing:</span>
-        	<p class="inline ml-1">5:00 PM is when we're aiming to have dinner served.</p>
-      	</div>
-      	<div>
-        	<span class="font-bold text-stone-800">Parking:</span>
-        	<ul class="list-disc list-inside mt-1 space-y-1 pl-1">
-          	<li><strong>Driveway:</strong> 2 spots (first come, first serve).</li>
-          	<li><strong>Guest spots:</strong> Available in the cul-de-sac.</li>
-          	<li><strong>Overflow:</strong> Park on Pompton Ave (instead of Pompton Ct).</li>
-        	</ul>
-      	</div>
-      	<div>
-        	<span class="font-bold text-stone-800">Finding us:</span>
-        	<p class="inline ml-1">Look for the house with the green light 🟢! If the garage is open, feel free to come in that way. Otherwise, head to the front door.</p>
-      	</div>
-    	</div>
-  	</div>
-  	<hr class="border-stone-100">
-    <div>
-      <p class="text-sm text-stone-600 leading-relaxed text-center italic">
-        We can’t wait to enjoy a day filled with good food and great company. Looking forward to celebrating together!
-      </p>
+    <div class="flex items-center space-x-2 px-4 py-2.5 bg-stone-900/95 text-white text-xs font-medium rounded-full shadow-lg border border-stone-700/60 backdrop-blur-xs">
+      <span class="text-sm">✏️</span>
+      <span id="toastMessage">Welcome back!</span>
     </div>
-	</div>
-	<!-- RSVP Form Card -->
-	<div class="bg-white rounded-2xl shadow-md border border-stone-200/90 p-6 sm:p-8">
-  	<div class="text-center mb-6">
-    	<h2 class="text-2xl font-extrabold text-stone-900">RSVP</h2>
-    	<p class="text-xs text-stone-500 font-medium mt-1">Let Nick &amp; Kelsey know if you can make it!</p>
-  	</div>
-  	<form id="rsvpForm" class="space-y-5">
-    	<!-- Name Input with Autocomplete Dropdown -->
-    	<div class="relative">
-      	<label for="name" class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-1.5">Full Name *</label>
-      	<input
-        	type="text"
-        	id="name"
-        	name="name"
-        	required
-        	autocomplete="off"
-        	placeholder="Start typing your name..."
-        	class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none text-sm transition-all shadow-xs"
-      	>
-      	<div id="nameSuggestions" class="hidden absolute z-20 left-0 right-0 mt-1 bg-white border border-stone-200 rounded-xl shadow-xl max-h-48 overflow-y-auto divide-y divide-stone-100"></div>
-    	</div>
-    	<!-- RSVP Buttons -->
-    	<div>
-      	<label class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-2">Will you be attending? *</label>
-      	<div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-        	<label class="group relative flex items-center justify-center px-1.5 py-3 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-emerald-50 hover:border-emerald-300 text-stone-700 text-xs font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-emerald-600 has-[:checked]:text-white has-[:checked]:border-emerald-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
-          	<input type="radio" name="attending" value="Yes" required class="sr-only" onchange="onAttendanceChange('Yes')">
-          	<span class="flex items-center space-x-1 whitespace-nowrap">
-            	<span class="text-sm group-has-[:checked]:scale-110 transition-transform">🎉</span>
-            	<span>Joyfully Accept</span>
-          	</span>
-        	</label>
-        	<label class="group relative flex items-center justify-center px-1.5 py-3 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-amber-50 hover:border-amber-300 text-stone-700 text-xs font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-amber-600 has-[:checked]:text-white has-[:checked]:border-amber-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
-          	<input type="radio" name="attending" value="Pending" required class="sr-only" onchange="onAttendanceChange('Pending')">
-          	<span class="flex items-center space-x-1 whitespace-nowrap">
-            	<span class="text-sm group-has-[:checked]:scale-110 transition-transform">🤔</span>
-            	<span>TBD / Undecided</span>
-          	</span>
-        	</label>
-        	<label class="group relative flex items-center justify-center px-1.5 py-3 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-rose-50 hover:border-rose-300 text-stone-700 text-xs font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-rose-600 has-[:checked]:text-white has-[:checked]:border-rose-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
-          	<input type="radio" name="attending" value="No" required class="sr-only" onchange="onAttendanceChange('No')">
-          	<span class="flex items-center space-x-1 whitespace-nowrap">
-            	<span class="text-sm group-has-[:checked]:scale-110 transition-transform">😞</span>
-            	<span>Regretfully Decline</span>
-          	</span>
-        	</label>
-      	</div>
-    	</div>
-    	<!-- Potluck Category & Dish Section -->
-    	<div id="dishSection" class="hidden space-y-4 pt-1">
-      	<div>
-        	<div class="flex items-center justify-between mb-1.5">
-          	<label for="categorySelect" class="block text-xs font-bold uppercase tracking-wider text-stone-500">
-            	Potluck Dish Category *
-          	</label>
-          	<button
-            	type="button"
-            	onclick="openSpreadSection()"
-            	class="text-xs font-semibold text-stone-500 hover:text-stone-800 hover:underline flex items-center space-x-1 cursor-pointer transition-colors"
-          	>
-            	<span>🍽️</span>
-            	<span>View Spread Below</span>
-          	</button>
-        	</div>
-        	<select
-          	id="categorySelect"
-          	name="category"
-          	onchange="onCategorySelectChange()"
-          	class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none text-sm transition-all shadow-xs bg-white text-stone-800 font-medium"
-        	>
-          	<option value="Undecided" selected>Undecided</option>
-        	</select>
-        	<p id="undecidedNote" class="mt-2 text-xs font-medium text-amber-800 bg-amber-50 border border-amber-200/80 p-2.5 rounded-xl flex items-center space-x-1.5">
-          	<span>💡</span>
-          	<span>Not sure what dish to bring yet? No problem! Submit your RSVP now and come back anytime to mark your dish.</span>
-        	</p>
-        	<div id="categoryPreview" class="hidden mt-2.5"></div>
-      	</div>
-      	<!-- Specific Dish Input (shown once a category other than Undecided is chosen) -->
-      	<div id="dishInputContainer" class="hidden">
-        	<label for="specificDish" class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-1.5">
-          	Specific Dish Bringing *
-        	</label>
-        	<input
-          	type="text"
-          	id="specificDish"
-          	name="dish"
-          	placeholder="What specific dish are you bringing? (e.g. Mashed Potatoes)"
-          	class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none text-sm transition-all shadow-xs"
-        	>
-      	</div>
-    	</div>
-    	<!-- Note (Optional) -->
-    	<div>
-      	<label for="notes" class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-1.5">Note for Hosts (Optional)</label>
-      	<textarea
-        	id="notes"
-        	name="notes"
-        	rows="2"
-        	placeholder="Dietary notes or a message for Nick &amp; Kelsey"
-        	class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none text-sm transition-all shadow-xs"
-      	></textarea>
-    	</div>
-    	<button
-      	type="submit"
-      	id="submitBtn"
-      	class="w-full py-3.5 px-4 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl text-sm border-2 border-b-4 border-amber-800 shadow-md transition-all active:border-b-2 active:translate-y-[2px]"
-    	>
-      	Submit Response
-    	</button>
-  	</form>
-  	<div id="statusMsg" class="hidden mt-4 p-4 rounded-xl text-center text-sm font-medium"></div>
-	</div>
-	<!-- Collapsible Current Potluck Spread Section -->
-	<div id="spreadCollapsibleSection" class="bg-white rounded-2xl shadow-md border border-stone-200/90 overflow-hidden">
-  	<button
-    	type="button"
-    	onclick="toggleSpreadSection()"
-    	class="w-full p-6 sm:p-7 flex items-center justify-between text-left hover:bg-stone-50/70 transition-colors cursor-pointer"
-  	>
-    	<div class="space-y-0.5">
-      	<div class="flex items-center space-x-2">
-        	<span class="text-lg">🍽️</span>
-        	<h2 class="text-xl font-bold text-stone-900">Current Potluck Spread</h2>
-      	</div>
-      	<p class="text-xs text-stone-500 font-medium">Explore claimed dishes and open category slots</p>
-    	</div>
-    	<div class="flex items-center space-x-3">
-      	<span id="spreadTotalBadge" class="text-xs font-semibold bg-stone-100 text-stone-600 px-3 py-1 rounded-full border border-stone-200/70">
-        	Loading...
-      	</span>
-      	<svg id="spreadChevron" class="w-5 h-5 text-stone-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-      	</svg>
-    	</div>
-  	</button>
-  	<div id="spreadCollapsibleContent" class="hidden px-6 sm:px-7 pb-7 border-t border-stone-100 pt-5 space-y-3.5">
-    	<!-- Rendered dynamically -->
-  	</div>
-	</div>
-	<!-- Guest List Display Card -->
-	<div class="bg-white rounded-2xl shadow-md border border-stone-200/90 p-6 sm:p-8">
-  	<div class="flex items-center justify-between mb-6">
-    	<div>
-      	<h2 class="text-xl font-bold text-stone-900">Guest List</h2>
-      	<p class="text-xs text-stone-500 mt-0.5">Live responses from invitees</p>
-    	</div>
-    	<span id="guestCountBadge" class="text-xs font-bold bg-amber-100 text-amber-900 px-3 py-1 rounded-full border border-amber-200">Loading...</span>
-  	</div>
-  	<div class="flex border-b border-stone-200 mb-5 text-sm font-semibold">
-    	<button id="tabAttending" onclick="switchGuestTab('Yes')" class="py-2.5 px-4 border-b-2 border-amber-600 text-amber-700 font-bold transition-colors">Attending (<span id="countYes">0</span>)</button>
-    	<button id="tabPending" onclick="switchGuestTab('Pending')" class="py-2.5 px-4 border-b-2 border-transparent text-stone-500 hover:text-stone-800 transition-colors">Pending (<span id="countPending">0</span>)</button>
-    	<button id="tabDeclined" onclick="switchGuestTab('No')" class="py-2.5 px-4 border-b-2 border-transparent text-stone-500 hover:text-stone-800 transition-colors">Declined (<span id="countNo">0</span>)</button>
-  	</div>
-  	<div id="guestListContainer" class="space-y-2.5">
-    	<p class="text-sm text-stone-400 italic text-center py-4">Fetching guest list...</p>
-  	</div>
-	</div>
-  </main>
-  <footer class="py-6 text-center text-xs text-stone-400 font-medium">
-	Friendsgiving 2026 • Nick + Kelsey
-  </footer>
-  <script>
-	const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8cRvnrCjoQ1cp8Ug15_VepaMDwE4bkQAHo8atxubo1GaUvvkD0PpwYLslTKY76LDmsA/exec';
-	let allGuests = [];
-	let allCategories = [];
-	let currentTab = 'Yes';
-	let currentGuestOriginalCategory = null;
-	let activeReturningGuest = null;
-	let toastTimer = null;
-	const AVATAR_GRADIENTS = [
-  	{ bg: 'linear-gradient(135deg, #f87171, #e11d48)', text: '#ffffff' },
-  	{ bg: 'linear-gradient(135deg, #fb923c, #ea580c)', text: '#ffffff' },
-  	{ bg: 'linear-gradient(135deg, #f59e0b, #d97706)', text: '#ffffff' },
-  	{ bg: 'linear-gradient(135deg, #10b981, #047857)', text: '#ffffff' },
-  	{ bg: 'linear-gradient(135deg, #14b8a6, #0f766e)', text: '#ffffff' },
-  	{ bg: 'linear-gradient(135deg, #06b6d4, #0e7490)', text: '#ffffff' },
-  	{ bg: 'linear-gradient(135deg, #3b82f6, #1d4ed8)', text: '#ffffff' },
-  	{ bg: 'linear-gradient(135deg, #6366f1, #4338ca)', text: '#ffffff' },
-  	{ bg: 'linear-gradient(135deg, #8b5cf6, #6d28d9)', text: '#ffffff' },
-  	{ bg: 'linear-gradient(135deg, #d946ef, #a21caf)', text: '#ffffff' },
-  	{ bg: 'linear-gradient(135deg, #ec4899, #be185d)', text: '#ffffff' },
-  	{ bg: 'linear-gradient(135deg, #c27854, #7c3a21)', text: '#ffffff' },
-	];
-	function getGuestGradient(name) {
-  	if (!name) return AVATAR_GRADIENTS[0];
-  	let hash = 0;
-  	const clean = name.trim().toLowerCase();
-  	for (let i = 0; i < clean.length; i++) {
-    	hash = clean.charCodeAt(i) + ((hash << 5) - hash);
-  	}
-  	const index = Math.abs(hash) % AVATAR_GRADIENTS.length;
-  	return AVATAR_GRADIENTS[index];
-	}
-	function getInitials(name) {
-  	if (!name) return '?';
-  	const parts = name.trim().split(/\s+/);
-  	if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
-  	return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-	}
-	function escapeHtml(str) {
-  	if (!str) return '';
-  	return String(str)
-    	.replace(/&/g, '&amp;')
-    	.replace(/</g, '&lt;')
-    	.replace(/>/g, '&gt;')
-    	.replace(/"/g, '&quot;')
-    	.replace(/'/g, '&#39;');
-	}
-	// Uses the last URL segment only if it looks like an event tab; otherwise the default event.
-	function getEventTabName() {
-  	const last = window.location.pathname.split('/').filter(Boolean).pop() || '';
-  	return /^friendsgiving-\d{4}$/i.test(last) ? last : 'friendsgiving-2026';
-	}
-	function showToast(message) {
-  	const toast = document.getElementById('toastNotification');
-  	const msgEl = document.getElementById('toastMessage');
-  	msgEl.innerText = message;
-  	if (toastTimer) clearTimeout(toastTimer);
-    toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
-      toast.classList.add('opacity-100', 'translate-y-0');
+  </div>
 
-      toastTimer = setTimeout(() => {
-        toast.classList.remove('opacity-100', 'translate-y-0');
-        toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
-      }, 3000);
-    }
-
-    function getEffectiveRemaining(categoryName) {
-      if (!categoryName || categoryName === 'Undecided') return 0;
-      const cat = allCategories.find(c => c.name.toLowerCase() === categoryName.toLowerCase());
-      if (!cat) return 0;
-      let remaining = cat.remaining;
-      if (currentGuestOriginalCategory && currentGuestOriginalCategory.toLowerCase() === categoryName.toLowerCase()) {
-        remaining += 1;
-      }
-      return remaining;
-    }
-
-    function updateCategoryDropdown(preserveSelectedValue = true) {
-      const select = document.getElementById('categorySelect');
-      const currentSelected = preserveSelectedValue ? select.value : 'Undecided';
-
-      select.innerHTML = '';
-
-      const undecidedOpt = document.createElement('option');
-      undecidedOpt.value = 'Undecided';
-      undecidedOpt.innerText = 'Undecided';
-      if (!currentSelected || currentSelected === 'Undecided') {
-        undecidedOpt.selected = true;
-      }
-      select.appendChild(undecidedOpt);
-
-      allCategories.forEach(cat => {
-        if (cat.name.toLowerCase() === 'undecided') return;
-
-        const remaining = getEffectiveRemaining(cat.name);
-        const option = document.createElement('option');
-        option.value = cat.name;
-
-        if (remaining > 0) {
-          const isCurrentChoice = currentGuestOriginalCategory && currentGuestOriginalCategory.toLowerCase() === cat.name.toLowerCase();
-          option.innerText = isCurrentChoice
-            ? `${cat.name} (${remaining} of ${cat.max} remaining - your current slot)`
-            : `${cat.name} (${remaining} of ${cat.max} remaining)`;
-        } else {
-          option.disabled = true;
-          option.className = 'text-stone-400 bg-stone-100';
-          option.innerText = `${cat.name} (FULL - 0 remaining)`;
-        }
-
-        if (currentSelected && currentSelected.toLowerCase() === cat.name.toLowerCase()) {
-          option.selected = true;
-        }
-
-        select.appendChild(option);
-      });
-
-      renderCategoryPreview();
-      updateDishRequirement();
-    }
-
-    function onCategorySelectChange() {
-      renderCategoryPreview();
-      updateDishRequirement();
-    }
-
-    // FIX: no longer references the non-existent #dishLabelRequired / #dishLabelOptional
-    // elements (that null access threw a TypeError and aborted the whole initial render).
-    function updateDishRequirement() {
-      const select = document.getElementById('categorySelect');
-      const dishInput = document.getElementById('specificDish');
-      const dishContainer = document.getElementById('dishInputContainer');
-      const note = document.getElementById('undecidedNote');
-
-      const checked = document.querySelector('input[name="attending"]:checked');
-      const isYes = !!checked && checked.value === 'Yes';
-      const isUndecided = !select.value || select.value === 'Undecided';
-
-      dishContainer.classList.toggle('hidden', isUndecided);
-      note.classList.toggle('hidden', !isUndecided);
-      dishInput.required = isYes && !isUndecided;
-    }
-
-    function renderCategoryPreview() {
-      const select = document.getElementById('categorySelect');
-      const previewBox = document.getElementById('categoryPreview');
-      const chosenCatName = select.value;
-
-      if (!chosenCatName || chosenCatName === 'Undecided') {
-        previewBox.classList.add('hidden');
-        previewBox.innerHTML = '';
-        return;
-      }
-
-      const cat = allCategories.find(c => c.name.toLowerCase() === chosenCatName.toLowerCase());
-      if (!cat) {
-        previewBox.classList.add('hidden');
-        return;
-      }
-
-      const dishes = cat.dishes || [];
-      const remaining = getEffectiveRemaining(cat.name);
-
-      if (dishes.length === 0) {
-        previewBox.className = 'mt-2.5 p-3 bg-stone-50 border border-stone-200 rounded-xl text-xs text-stone-700 flex items-center justify-between';
-        previewBox.innerHTML = `
-          <span class="font-medium">✨ Be the first to claim a dish in <strong>${escapeHtml(cat.name)}</strong>!</span>
-          <span class="text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/70 px-2 py-0.5 rounded-full">${cat.max} slots open</span>
-        `;
-        previewBox.classList.remove('hidden');
-        return;
-      }
-
-      previewBox.className = 'mt-2.5 p-3.5 bg-stone-50 border border-stone-200 rounded-xl text-xs space-y-2';
-      previewBox.innerHTML = `
-        <div class="flex items-center justify-between text-stone-800 font-bold">
-          <span class="flex items-center space-x-1.5">
-            <span>📋</span>
-            <span>Already on the menu for <span class="text-stone-900 underline decoration-stone-300">${escapeHtml(cat.name)}</span>:</span>
-          </span>
-          <span class="text-[11px] font-semibold text-stone-600 bg-stone-200/70 px-2.5 py-0.5 rounded-full border border-stone-200/60">
-            ${remaining} slot${remaining === 1 ? '' : 's'} left
-          </span>
+  <main class="max-w-xl mx-auto w-full px-4 space-y-6 mb-8">
+    <!-- Hero / Event Details Card -->
+    <div class="bg-white rounded-2xl shadow-md border border-stone-200/90 overflow-hidden">
+      <div class="relative w-full h-48 sm:h-64 bg-amber-100 overflow-hidden">
+        <img
+          id="eventBanner"
+          src="banner.png?v=2"
+          alt="Friendsgiving Potluck Banner"
+          class="w-full h-full object-cover"
+          onerror="this.onerror=null; this.src='https://cdn.partey.io/uploads/header/kswTXwLyXEYY/header.jpg?v=1760403483373';"
+        />
+      </div>
+      <div class="p-6 sm:p-8 space-y-6">
+        <div class="flex items-center space-x-4">
+          <div class="flex flex-col items-center justify-center bg-amber-50 border-2 border-amber-200/80 rounded-2xl px-3 py-2 min-w-[70px] shadow-sm text-center shrink-0">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-700">NOV</span>
+            <span class="text-3xl font-extrabold text-stone-900 leading-none my-0.5">21</span>
+            <span class="text-[10px] font-bold text-stone-500 uppercase">2026</span>
+          </div>
+          <div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 leading-tight">
+              Friendsgiving Potluck
+            </h1>
+            <p class="text-sm text-stone-600 font-medium mt-1">
+              Hosted by <span class="text-stone-900 font-semibold">Nick + Kelsey</span>
+            </p>
+          </div>
         </div>
-        <ul class="divide-y divide-stone-200/60 pl-1 text-stone-700">
-          ${dishes.map(d => `
-            <li class="flex items-center justify-between py-1 text-xs">
-              <span class="font-medium text-stone-900">• ${escapeHtml(d.guest)}</span>
-              <span class="text-stone-500 italic font-normal">${escapeHtml(d.dish || 'Dish')}</span>
-            </li>
-          `).join('')}
-        </ul>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
+          <div class="flex items-start space-x-3 p-3.5 rounded-xl bg-stone-50 border border-stone-200/70">
+            <div class="bg-amber-100 text-amber-800 p-2.5 rounded-xl shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-xs font-bold uppercase text-stone-400 tracking-wider">When</h2>
+              <p class="text-sm font-bold text-stone-800 mt-0.5">Saturday, Nov 21, 2026</p>
+              <p class="text-xs text-stone-500 mt-0.5">Starts 4:00 PM CST (Food at 5:00 PM)</p>
+            </div>
+          </div>
+
+          <div class="flex items-start space-x-3 p-3.5 rounded-xl bg-stone-50 border border-stone-200/70">
+            <div class="bg-amber-100 text-amber-800 p-2.5 rounded-xl shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-xs font-bold uppercase text-stone-400 tracking-wider">Where</h2>
+              <a href="https://maps.google.com/?q=4034+Pompton+Ct,+Elgin,+IL+60124" target="_blank" rel="noopener noreferrer" class="group block mt-0.5">
+                <p class="text-sm font-bold text-stone-800 group-hover:text-amber-800 underline transition-colors">4034 Pompton Ct</p>
+                <p class="text-xs text-stone-500 group-hover:text-amber-800 underline transition-colors">Elgin, IL 60124</p>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add to Calendar Options -->
+        <div class="flex flex-col gap-1.5 pt-3">
+          <!-- Google -->
+          <a id="googleCalLink" href="#" target="_blank" class="group relative flex items-center justify-center space-x-2 w-full py-2.5 px-3 border border-stone-200 bg-white hover:bg-blue-50 hover:border-blue-200 hover:text-blue-700 text-stone-600 rounded-xl text-[11px] font-bold uppercase tracking-wide transition-all shadow-sm">
+            <svg class="w-4 h-4 text-blue-500 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <span>Add to Google Calendar</span>
+          </a>
+          <!-- Apple (iCal) -->
+          <a id="appleCalLink" href="#" download="friendsgiving-2026.ics" class="group relative flex items-center justify-center space-x-2 w-full py-2.5 px-3 border border-stone-200 bg-white hover:bg-rose-50 hover:border-rose-200 hover:text-rose-700 text-stone-600 rounded-xl text-[11px] font-bold uppercase tracking-wide transition-all shadow-sm">
+            <svg class="w-4 h-4 text-rose-500 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+            </svg>
+            <span>Add to Apple (iCal)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Event Guidelines Card -->
+    <div class="bg-white rounded-2xl shadow-md border border-stone-200/90 p-6 sm:p-8 space-y-6">
+      <div class="bg-amber-50/80 border border-amber-200/80 rounded-xl p-4">
+        <h3 class="text-base font-bold text-amber-900 mb-1 flex items-center space-x-1.5">
+          <span>📅</span>
+          <span> </span>
+          <span> </span>
+          <span>Please RSVP by Monday, Nov 16 and sign up for a potluck dish below!</span>
+        </h3>
+      </div>
+      <div>
+        <h3 class="text-base font-bold text-stone-900 mb-2 flex items-center space-x-2">
+          <span>🍹</span>
+          <span>Drinks</span>
+        </h3>
+        <p class="text-sm text-stone-600 leading-relaxed">
+          We'll have a signature cocktail, hard seltzers, and bourbon to share. There will be some nonalcoholic beverages/soda as well, but otherwise bring what you'd like to drink.
+        </p>
+      </div>
+      <hr class="border-stone-100">
+      <div>
+        <h3 class="text-base font-bold text-stone-900 mb-3 flex items-center space-x-2">
+          <span>📍</span>
+          <span>Day-Of Info</span>
+        </h3>
+        <div class="space-y-3 text-sm text-stone-600">
+          <div>
+            <span class="font-bold text-stone-800">Timing:</span>
+            <p class="inline ml-1">5:00 PM is when we're aiming to have dinner served.</p>
+          </div>
+          <div>
+            <span class="font-bold text-stone-800">Parking:</span>
+            <ul class="list-disc list-inside mt-1 space-y-1 pl-1">
+              <li><strong>Driveway:</strong> 2 spots (first come, first serve).</li>
+              <li><strong>Guest spots:</strong> Available in the cul-de-sac.</li>
+              <li><strong>Overflow:</strong> Park on Pompton Ave (instead of Pompton Ct).</li>
+            </ul>
+          </div>
+          <div>
+            <span class="font-bold text-stone-800">Finding us:</span>
+            <p class="inline ml-1">Look for the house with the green light 🟢! If the garage is open, feel free to come in that way. Otherwise, head to the front door.</p>
+          </div>
+        </div>
+      </div>
+      <hr class="border-stone-100">
+      <div>
+        <p class="text-sm text-stone-600 leading-relaxed text-center italic">
+          We can’t wait to enjoy a day filled with good food and great company. Looking forward to celebrating together!
+        </p>
+      </div>
+    </div>
+
+    <!-- RSVP Form Card -->
+    <div class="bg-white rounded-2xl shadow-md border border-stone-200/90 p-6 sm:p-8">
+      <div class="text-center mb-6">
+        <h2 class="text-2xl font-extrabold text-stone-900">RSVP</h2>
+        <p class="text-xs text-stone-500 font-medium mt-1">Let Nick &amp; Kelsey know if you can make it!</p>
+      </div>
+      <form id="rsvpForm" class="space-y-5">
+        <!-- Name Input with Autocomplete Dropdown -->
+        <div class="relative">
+          <label for="name" class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-1.5">Full Name *</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            autocomplete="off"
+            placeholder="Start typing your name..."
+            class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none text-sm transition-all shadow-xs"
+          >
+          <div id="nameSuggestions" class="hidden absolute z-20 left-0 right-0 mt-1 bg-white border border-stone-200 rounded-xl shadow-xl max-h-48 overflow-y-auto divide-y divide-stone-100"></div>
+        </div>
+        <!-- RSVP Buttons -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-2">Will you be attending? *</label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <label class="group relative flex items-center justify-center px-1.5 py-3 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-emerald-50 hover:border-emerald-300 text-stone-700 text-xs font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-emerald-600 has-[:checked]:text-white has-[:checked]:border-emerald-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
+              <input type="radio" name="attending" value="Yes" required class="sr-only" onchange="onAttendanceChange('Yes')">
+              <span class="flex items-center space-x-1 whitespace-nowrap">
+                <span class="text-sm group-has-[:checked]:scale-110 transition-transform">🎉</span>
+                <span>Joyfully Accept</span>
+              </span>
+            </label>
+            <label class="group relative flex items-center justify-center px-1.5 py-3 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-amber-50 hover:border-amber-300 text-stone-700 text-xs font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-amber-600 has-[:checked]:text-white has-[:checked]:border-amber-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
+              <input type="radio" name="attending" value="Pending" required class="sr-only" onchange="onAttendanceChange('Pending')">
+              <span class="flex items-center space-x-1 whitespace-nowrap">
+                <span class="text-sm group-has-[:checked]:scale-110 transition-transform">🤔</span>
+                <span>TBD / Undecided</span>
+              </span>
+            </label>
+            <label class="group relative flex items-center justify-center px-1.5 py-3 rounded-xl cursor-pointer border-2 border-b-4 border-stone-200 bg-white hover:bg-rose-50 hover:border-rose-300 text-stone-700 text-xs font-semibold transition-all active:border-b-2 active:translate-y-[2px] has-[:checked]:bg-rose-600 has-[:checked]:text-white has-[:checked]:border-rose-700 has-[:checked]:border-b-4 has-[:checked]:shadow-md">
+              <input type="radio" name="attending" value="No" required class="sr-only" onchange="onAttendanceChange('No')">
+              <span class="flex items-center space-x-1 whitespace-nowrap">
+                <span class="text-sm group-has-[:checked]:scale-110 transition-transform">😞</span>
+                <span>Regretfully Decline</span>
+              </span>
+            </label>
+          </div>
+        </div>
+        <!-- Potluck Category & Dish Section -->
+        <div id="dishSection" class="hidden space-y-4 pt-1">
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label for="categorySelect" class="block text-xs font-bold uppercase tracking-wider text-stone-500">
+                Potluck Dish Category *
+              </label>
+              <button
+                type="button"
+                onclick="openSpreadSection()"
+                class="text-xs font-semibold text-stone-500 hover:text-stone-800 hover:underline flex items-center space-x-1 cursor-pointer transition-colors"
+              >
+                <span>🍽️</span>
+                <span>View Spread Below</span>
+              </button>
+            </div>
+            <select
+              id="categorySelect"
+              name="category"
+              onchange="onCategorySelectChange()"
+              class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none text-sm transition-all shadow-xs bg-white text-stone-800 font-medium"
+            >
+              <option value="Undecided" selected>Undecided</option>
+            </select>
+            <p id="undecidedNote" class="mt-2 text-xs font-medium text-amber-800 bg-amber-50 border border-amber-200/80 p-2.5 rounded-xl flex items-center space-x-1.5">
+              <span>💡</span>
+              <span>Not sure what dish to bring yet? No problem! Submit your RSVP now and come back anytime to mark your dish.</span>
+            </p>
+            <div id="categoryPreview" class="hidden mt-2.5"></div>
+          </div>
+          <!-- Specific Dish Input -->
+          <div id="dishInputContainer" class="hidden">
+            <label for="specificDish" class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-1.5">
+              Specific Dish Bringing *
+            </label>
+            <input
+              type="text"
+              id="specificDish"
+              name="dish"
+              placeholder="What specific dish are you bringing? (e.g. Mashed Potatoes)"
+              class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none text-sm transition-all shadow-xs"
+            >
+          </div>
+        </div>
+        <!-- Note (Optional) -->
+        <div>
+          <label for="notes" class="block text-xs font-bold uppercase tracking-wider text-stone-500 mb-1.5">Note for Hosts (Optional)</label>
+          <textarea
+            id="notes"
+            name="notes"
+            rows="2"
+            placeholder="Dietary notes or a message for Nick &amp; Kelsey"
+            class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none text-sm transition-all shadow-xs"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          id="submitBtn"
+          class="w-full py-3.5 px-4 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl text-sm border-2 border-b-4 border-amber-800 shadow-md transition-all active:border-b-2 active:translate-y-[2px]"
+        >
+          Submit Response
+        </button>
+      </form>
+      <div id="statusMsg" class="hidden mt-4 p-4 rounded-xl text-center text-sm font-medium"></div>
+    </div>
+
+    <!-- Collapsible Current Potluck Spread Section -->
+    <div id="spreadCollapsibleSection" class="bg-white rounded-2xl shadow-md border border-stone-200/90 overflow-hidden">
+      <button
+        type="button"
+        onclick="toggleSpreadSection()"
+        class="w-full p-6 sm:p-7 flex items-center justify-between text-left hover:bg-stone-50/70 transition-colors cursor-pointer"
+      >
+        <div class="space-y-0.5">
+          <div class="flex items-center space-x-2">
+            <span class="text-lg">🍽️</span>
+            <h2 class="text-xl font-bold text-stone-900">Current Potluck Spread</h2>
+          </div>
+          <p class="text-xs text-stone-500 font-medium">Explore claimed dishes and open category slots</p>
+        </div>
+        <div class="flex items-center space-x-3">
+          <span id="spreadTotalBadge" class="text-xs font-semibold bg-stone-100 text-stone-600 px-3 py-1 rounded-full border border-stone-200/70">
+            Loading...
+          </span>
+          <svg id="spreadChevron" class="w-5 h-5 text-stone-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+      </button>
+      <div id="spreadCollapsibleContent" class="hidden px-6 sm:px-7 pb-7 border-t border-stone-100 pt-5 space-y-3.5">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- Guest List Display Card -->
+    <div class="bg-white rounded-2xl shadow-md border border-stone-200/90 p-6 sm:p-8">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-xl font-bold text-stone-900">Guest List</h2>
+          <p class="text-xs text-stone-500 mt-0.5">Live responses from invitees</p>
+        </div>
+        <span id="guestCountBadge" class="text-xs font-bold bg-amber-100 text-amber-900 px-3 py-1 rounded-full border border-amber-200">Loading...</span>
+      </div>
+      <div class="flex border-b border-stone-200 mb-5 text-sm font-semibold">
+        <button id="tabAttending" onclick="switchGuestTab('Yes')" class="py-2.5 px-4 border-b-2 border-amber-600 text-amber-700 font-bold transition-colors">Attending (<span id="countYes">0</span>)</button>
+        <button id="tabPending" onclick="switchGuestTab('Pending')" class="py-2.5 px-4 border-b-2 border-transparent text-stone-500 hover:text-stone-800 transition-colors">Pending (<span id="countPending">0</span>)</button>
+        <button id="tabDeclined" onclick="switchGuestTab('No')" class="py-2.5 px-4 border-b-2 border-transparent text-stone-500 hover:text-stone-800 transition-colors">Declined (<span id="countNo">0</span>)</button>
+      </div>
+      <div id="guestListContainer" class="space-y-2.5">
+        <p class="text-sm text-stone-400 italic text-center py-4">Fetching guest list...</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="py-6 text-center text-xs text-stone-400 font-medium">
+    Friendsgiving 2026 • Nick + Kelsey
+  </footer>
+
+  <script>
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8cRvnrCjoQ1cp8Ug15_VepaMDwE4bkQAHo8atxubo1GaUvvkD0PpwYLslTKY76LDmsA/exec';
+  let allGuests = [];
+  let allCategories = [];
+  let currentTab = 'Yes';
+  let currentGuestOriginalCategory = null;
+  let activeReturningGuest = null;
+  let toastTimer = null;
+
+  const AVATAR_GRADIENTS = [
+    { bg: 'linear-gradient(135deg, #f87171, #e11d48)', text: '#ffffff' },
+    { bg: 'linear-gradient(135deg, #fb923c, #ea580c)', text: '#ffffff' },
+    { bg: 'linear-gradient(135deg, #f59e0b, #d97706)', text: '#ffffff' },
+    { bg: 'linear-gradient(135deg, #10b981, #047857)', text: '#ffffff' },
+    { bg: 'linear-gradient(135deg, #14b8a6, #0f766e)', text: '#ffffff' },
+    { bg: 'linear-gradient(135deg, #06b6d4, #0e7490)', text: '#ffffff' },
+    { bg: 'linear-gradient(135deg, #3b82f6, #1d4ed8)', text: '#ffffff' },
+    { bg: 'linear-gradient(135deg, #6366f1, #4338ca)', text: '#ffffff' },
+    { bg: 'linear-gradient(135deg, #8b5cf6, #6d28d9)', text: '#ffffff' },
+    { bg: 'linear-gradient(135deg, #d946ef, #a21caf)', text: '#ffffff' },
+    { bg: 'linear-gradient(135deg, #ec4899, #be185d)', text: '#ffffff' },
+    { bg: 'linear-gradient(135deg, #c27854, #7c3a21)', text: '#ffffff' },
+  ];
+
+  function getGuestGradient(name) {
+    if (!name) return AVATAR_GRADIENTS[0];
+    let hash = 0;
+    const clean = name.trim().toLowerCase();
+    for (let i = 0; i < clean.length; i++) {
+      hash = clean.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const index = Math.abs(hash) % AVATAR_GRADIENTS.length;
+    return AVATAR_GRADIENTS[index];
+  }
+
+  function getInitials(name) {
+    if (!name) return '?';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function getEventTabName() {
+    const last = window.location.pathname.split('/').filter(Boolean).pop() || '';
+    return /^friendsgiving-\d{4}$/i.test(last) ? last : 'friendsgiving-2026';
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById('toastNotification');
+    const msgEl = document.getElementById('toastMessage');
+    msgEl.innerText = message;
+    if (toastTimer) clearTimeout(toastTimer);
+    toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
+    toast.classList.add('opacity-100', 'translate-y-0');
+
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('opacity-100', 'translate-y-0');
+      toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+    }, 3000);
+  }
+
+  function getEffectiveRemaining(categoryName) {
+    if (!categoryName || categoryName === 'Undecided') return 0;
+    const cat = allCategories.find(c => c.name.toLowerCase() === categoryName.toLowerCase());
+    if (!cat) return 0;
+    let remaining = cat.remaining;
+    if (currentGuestOriginalCategory && currentGuestOriginalCategory.toLowerCase() === categoryName.toLowerCase()) {
+      remaining += 1;
+    }
+    return remaining;
+  }
+
+  function updateCategoryDropdown(preserveSelectedValue = true) {
+    const select = document.getElementById('categorySelect');
+    const currentSelected = preserveSelectedValue ? select.value : 'Undecided';
+
+    select.innerHTML = '';
+
+    const undecidedOpt = document.createElement('option');
+    undecidedOpt.value = 'Undecided';
+    undecidedOpt.innerText = 'Undecided';
+    if (!currentSelected || currentSelected === 'Undecided') {
+      undecidedOpt.selected = true;
+    }
+    select.appendChild(undecidedOpt);
+
+    allCategories.forEach(cat => {
+      if (cat.name.toLowerCase() === 'undecided') return;
+
+      const remaining = getEffectiveRemaining(cat.name);
+      const option = document.createElement('option');
+      option.value = cat.name;
+
+      if (remaining > 0) {
+        const isCurrentChoice = currentGuestOriginalCategory && currentGuestOriginalCategory.toLowerCase() === cat.name.toLowerCase();
+        option.innerText = isCurrentChoice
+          ? `${cat.name} (${remaining} of ${cat.max} remaining - your current slot)`
+          : `${cat.name} (${remaining} of ${cat.max} remaining)`;
+      } else {
+        option.disabled = true;
+        option.className = 'text-stone-400 bg-stone-100';
+        option.innerText = `${cat.name} (FULL - 0 remaining)`;
+      }
+
+      if (currentSelected && currentSelected.toLowerCase() === cat.name.toLowerCase()) {
+        option.selected = true;
+      }
+
+      select.appendChild(option);
+    });
+
+    renderCategoryPreview();
+    updateDishRequirement();
+  }
+
+  function onCategorySelectChange() {
+    renderCategoryPreview();
+    updateDishRequirement();
+  }
+
+  function updateDishRequirement() {
+    const select = document.getElementById('categorySelect');
+    const dishInput = document.getElementById('specificDish');
+    const dishContainer = document.getElementById('dishInputContainer');
+    const note = document.getElementById('undecidedNote');
+
+    const checked = document.querySelector('input[name="attending"]:checked');
+    const isYes = !!checked && checked.value === 'Yes';
+    const isUndecided = !select.value || select.value === 'Undecided';
+
+    dishContainer.classList.toggle('hidden', isUndecided);
+    note.classList.toggle('hidden', !isUndecided);
+    dishInput.required = isYes && !isUndecided;
+  }
+
+  function renderCategoryPreview() {
+    const select = document.getElementById('categorySelect');
+    const previewBox = document.getElementById('categoryPreview');
+    const chosenCatName = select.value;
+
+    if (!chosenCatName || chosenCatName === 'Undecided') {
+      previewBox.classList.add('hidden');
+      previewBox.innerHTML = '';
+      return;
+    }
+
+    const cat = allCategories.find(c => c.name.toLowerCase() === chosenCatName.toLowerCase());
+    if (!cat) {
+      previewBox.classList.add('hidden');
+      return;
+    }
+
+    const dishes = cat.dishes || [];
+    const remaining = getEffectiveRemaining(cat.name);
+
+    if (dishes.length === 0) {
+      previewBox.className = 'mt-2.5 p-3 bg-stone-50 border border-stone-200 rounded-xl text-xs text-stone-700 flex items-center justify-between';
+      previewBox.innerHTML = `
+        <span class="font-medium">✨ Be the first to claim a dish in <strong>${escapeHtml(cat.name)}</strong>!</span>
+        <span class="text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/70 px-2 py-0.5 rounded-full">${cat.max} slots open</span>
       `;
       previewBox.classList.remove('hidden');
+      return;
     }
 
-    function onAttendanceChange(status) {
-      const dishSection = document.getElementById('dishSection');
+    previewBox.className = 'mt-2.5 p-3.5 bg-stone-50 border border-stone-200 rounded-xl text-xs space-y-2';
+    previewBox.innerHTML = `
+      <div class="flex items-center justify-between text-stone-800 font-bold">
+        <span class="flex items-center space-x-1.5">
+          <span>📋</span>
+          <span>Already on the menu for <span class="text-stone-900 underline decoration-stone-300">${escapeHtml(cat.name)}</span>:</span>
+        </span>
+        <span class="text-[11px] font-semibold text-stone-600 bg-stone-200/70 px-2.5 py-0.5 rounded-full border border-stone-200/60">
+          ${remaining} slot${remaining === 1 ? '' : 's'} left
+        </span>
+      </div>
+      <ul class="divide-y divide-stone-200/60 pl-1 text-stone-700">
+        ${dishes.map(d => `
+          <li class="flex items-center justify-between py-1 text-xs">
+            <span class="font-medium text-stone-900">• ${escapeHtml(d.guest)}</span>
+            <span class="text-stone-500 italic font-normal">${escapeHtml(d.dish || 'Dish')}</span>
+          </li>
+        `).join('')}
+      </ul>
+    `;
+    previewBox.classList.remove('hidden');
+  }
 
-      if (status === 'Yes') {
-        dishSection.classList.remove('hidden');
-        updateDishRequirement();
-      } else {
-        dishSection.classList.add('hidden');
-        document.getElementById('specificDish').required = false;
-      }
+  function onAttendanceChange(status) {
+    const dishSection = document.getElementById('dishSection');
+
+    if (status === 'Yes') {
+      dishSection.classList.remove('hidden');
+      updateDishRequirement();
+    } else {
+      dishSection.classList.add('hidden');
+      document.getElementById('specificDish').required = false;
     }
+  }
 
-    function toggleSpreadSection() {
-      const content = document.getElementById('spreadCollapsibleContent');
-      const chevron = document.getElementById('spreadChevron');
-      const isHidden = content.classList.contains('hidden');
-      if (isHidden) {
-        content.classList.remove('hidden');
-        chevron.classList.add('rotate-180');
-      } else {
-        content.classList.add('hidden');
-        chevron.classList.remove('rotate-180');
-      }
-    }
-
-    function openSpreadSection() {
-      const content = document.getElementById('spreadCollapsibleContent');
-      const chevron = document.getElementById('spreadChevron');
+  function toggleSpreadSection() {
+    const content = document.getElementById('spreadCollapsibleContent');
+    const chevron = document.getElementById('spreadChevron');
+    const isHidden = content.classList.contains('hidden');
+    if (isHidden) {
       content.classList.remove('hidden');
       chevron.classList.add('rotate-180');
-      document.getElementById('spreadCollapsibleSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      content.classList.add('hidden');
+      chevron.classList.remove('rotate-180');
+    }
+  }
+
+  function openSpreadSection() {
+    const content = document.getElementById('spreadCollapsibleContent');
+    const chevron = document.getElementById('spreadChevron');
+    content.classList.remove('hidden');
+    chevron.classList.add('rotate-180');
+    document.getElementById('spreadCollapsibleSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderSpreadSection() {
+    const container = document.getElementById('spreadCollapsibleContent');
+    const badge = document.getElementById('spreadTotalBadge');
+    if (!container) return;
+
+    if (allCategories.length === 0) {
+      container.innerHTML = '<p class="text-sm text-stone-400 italic text-center py-4">No potluck categories available yet.</p>';
+      if (badge) badge.innerText = 'No categories';
+      return;
     }
 
-    function renderSpreadSection() {
-      const container = document.getElementById('spreadCollapsibleContent');
-      const badge = document.getElementById('spreadTotalBadge');
-      if (!container) return;
+    let totalMax = 0;
+    let totalClaimed = 0;
 
-      if (allCategories.length === 0) {
-        container.innerHTML = '<p class="text-sm text-stone-400 italic text-center py-4">No potluck categories available yet.</p>';
-        if (badge) badge.innerText = 'No categories';
-        return;
-      }
-
-      let totalMax = 0;
-      let totalClaimed = 0;
-
-      allCategories.forEach(c => {
-        if (c.name.toLowerCase() === 'undecided') return;
-        totalMax += (c.max || 0);
-        totalClaimed += (c.dishes || []).length;
-      });
-
-      if (badge) {
-        badge.innerText = `${totalClaimed} of ${totalMax} Claimed`;
-      }
-
-      container.innerHTML = allCategories.map(cat => {
-        if (cat.name.toLowerCase() === 'undecided') return '';
-
-        const remaining = getEffectiveRemaining(cat.name);
-        const isFull = remaining <= 0;
-        const dishes = cat.dishes || [];
-
-        return `
-          <div class="p-4 rounded-xl border ${isFull ? 'bg-stone-50 border-stone-200' : 'bg-stone-50/70 border-stone-200/80'} space-y-2.5">
-            <div class="flex items-center justify-between">
-              <h4 class="font-bold text-sm text-stone-900">${escapeHtml(cat.name)}</h4>
-              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full border ${
-                isFull
-                  ? 'bg-stone-200/60 text-stone-500 border-stone-200'
-                  : 'bg-emerald-50 text-emerald-800 border-emerald-200/70'
-              }">
-                ${isFull ? 'FULL (0 open)' : `${remaining} of ${cat.max} open`}
-              </span>
-            </div>
-
-            ${dishes.length > 0 ? `
-              <div class="space-y-1">
-                <p class="text-[11px] font-bold text-stone-400 uppercase tracking-wider">Claimed dishes:</p>
-                <ul class="text-xs space-y-1 pl-1 text-stone-700">
-                  ${dishes.map(d => `
-                    <li class="flex justify-between py-0.5 border-b border-stone-150 last:border-none">
-                      <span class="font-medium text-stone-900">• ${escapeHtml(d.guest)}</span>
-                      <span class="text-stone-500 italic">${escapeHtml(d.dish || 'Dish')}</span>
-                    </li>
-                  `).join('')}
-                </ul>
-              </div>
-            ` : `
-              <p class="text-xs text-stone-400 italic">No dishes claimed yet.</p>
-            `}
-          </div>
-        `;
-      }).join('');
-    }
-
-    // Page Load & Data Fetching
-    window.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const guestName = urlParams.get('guest');
-
-      const title = encodeURIComponent("Friendsgiving Potluck");
-      const eventUrl = window.location.href;
-      const details = encodeURIComponent(`Bring a dish to share! Hosted by Nick + Kelsey.\n\nRSVP & Event Details:\n${eventUrl}`);
-      const location = encodeURIComponent("4034 Pompton Ct, Elgin, IL 60124");
-      document.getElementById('calLink').href =
-        `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261121T220000Z/20261122T040000Z&details=${details}&location=${location}`;
-
-      fetchGuestList().then(() => {
-        if (guestName) {
-          const cleanName = decodeURIComponent(guestName);
-          document.getElementById('name').value = cleanName;
-          checkAndApplyReturningGuest(cleanName);
-        }
-      });
+    allCategories.forEach(c => {
+      if (c.name.toLowerCase() === 'undecided') return;
+      totalMax += (c.max || 0);
+      totalClaimed += (c.dishes || []).length;
     });
 
-    // FIX: network/parse errors are handled separately from rendering, and each render step
-    // is isolated, so one render bug can no longer cause a false "Unable to load" message
-    // or leave the Spread badge stuck on "Loading...".
-    async function fetchGuestList() {
-      const container = document.getElementById('guestListContainer');
-      try {
-        const res = await fetch(`${APPS_SCRIPT_URL}?tabName=${encodeURIComponent(getEventTabName())}`);
-        const data = await res.json();
-        allGuests = Array.isArray(data.guests) ? data.guests : [];
-        allCategories = Array.isArray(data.categories) ? data.categories : [];
-      } catch (err) {
-        console.error('Fetch failed:', err);
-        container.innerHTML = '<p class="text-sm text-stone-400 text-center py-4">Unable to load guest list. <button type="button" onclick="fetchGuestList()" class="underline">Retry</button></p>';
-        document.getElementById('guestCountBadge').innerText = 'Unavailable';
-        document.getElementById('spreadTotalBadge').innerText = 'Unavailable';
-        return;
-      }
-
-      [
-        updateGuestCounts,
-        renderGuestList,
-        renderSpreadSection,
-        () => updateCategoryDropdown(true)
-      ].forEach(fn => {
-        try { fn(); } catch (e) { console.error('Render step failed:', e); }
-      });
+    if (badge) {
+      badge.innerText = `${totalClaimed} of ${totalMax} Claimed`;
     }
 
-    function updateGuestCounts() {
-      document.getElementById('countYes').innerText = allGuests.filter(g => g.attending === 'Yes').length;
-      document.getElementById('countPending').innerText = allGuests.filter(g => g.attending === 'Pending').length;
-      document.getElementById('countNo').innerText = allGuests.filter(g => g.attending === 'No').length;
-      document.getElementById('guestCountBadge').innerText = `${allGuests.length} Invited`;
-    }
+    container.innerHTML = allCategories.map(cat => {
+      if (cat.name.toLowerCase() === 'undecided') return '';
 
-    function switchGuestTab(status) {
-      currentTab = status;
-      const tabs = { 'Yes': 'tabAttending', 'Pending': 'tabPending', 'No': 'tabDeclined' };
-      Object.keys(tabs).forEach(key => {
-        document.getElementById(tabs[key]).className = key === status
-          ? "py-2.5 px-4 border-b-2 border-amber-600 text-amber-700 font-bold transition-colors"
-          : "py-2.5 px-4 border-b-2 border-transparent text-stone-500 hover:text-stone-800 transition-colors";
-      });
-      renderGuestList();
-    }
+      const remaining = getEffectiveRemaining(cat.name);
+      const isFull = remaining <= 0;
+      const dishes = cat.dishes || [];
 
-    function renderGuestList() {
-      const container = document.getElementById('guestListContainer');
-      const filtered = allGuests.filter(g => g.attending === currentTab);
-      if (filtered.length === 0) {
-        container.innerHTML = `<p class="text-sm text-stone-400 italic text-center py-4">No guests currently in this list.</p>`;
-        return;
-      }
-
-      container.innerHTML = filtered.map(g => {
-        const gradient = getGuestGradient(g.name);
-        const initials = getInitials(g.name);
-        const guestStatus = g.attending === 'Yes' ? 'Attending' : (g.attending === 'No' ? 'Declined' : 'Pending');
-        const badgeClasses = g.attending === 'Yes'
-          ? 'bg-emerald-100 text-emerald-800 border-emerald-200'
-          : (g.attending === 'No'
-            ? 'bg-rose-100 text-rose-800 border-rose-200'
-            : 'bg-amber-100 text-amber-800 border-amber-200');
-
-        const catText = (g.category && g.category !== 'Undecided') ? g.category : '';
-        const dishText = g.dish || '';
-        const hasDishInfo = (catText || dishText) && g.attending === 'Yes';
-
-        return `
-          <div class="flex items-center justify-between p-3.5 bg-stone-50/90 rounded-xl border border-stone-200/70">
-            <div class="flex items-center space-x-3">
-              <div class="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold shadow-xs shrink-0" style="background: ${gradient.bg}; color: ${gradient.text}">
-                ${escapeHtml(initials)}
-              </div>
-              <div>
-                <p class="text-sm font-semibold text-stone-800">${escapeHtml(g.name)}</p>
-                ${hasDishInfo ? `
-                  <p class="text-xs text-stone-500 font-medium">
-                    ${catText ? `<span class="text-amber-800 font-semibold">${escapeHtml(catText)}:</span> ` : ''}${escapeHtml(dishText)}
-                  </p>
-                ` : ''}
-              </div>
-            </div>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full border ${badgeClasses}">
-              ${guestStatus}
+      return `
+        <div class="p-4 rounded-xl border ${isFull ? 'bg-stone-50 border-stone-200' : 'bg-stone-50/70 border-stone-200/80'} space-y-2.5">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-sm text-stone-900">${escapeHtml(cat.name)}</h4>
+            <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full border ${
+              isFull
+                ? 'bg-stone-200/60 text-stone-500 border-stone-200'
+                : 'bg-emerald-50 text-emerald-800 border-emerald-200/70'
+            }">
+              ${isFull ? 'FULL (0 open)' : `${remaining} of ${cat.max} open`}
             </span>
           </div>
-        `;
-      }).join('');
-    }
 
-    // Autocomplete & Pre-Populated / Returning Guest Logic
-    const nameInput = document.getElementById('name');
-    const suggestionsBox = document.getElementById('nameSuggestions');
-
-    nameInput.addEventListener('input', (e) => {
-      document.getElementById('statusMsg').classList.add('hidden');
-
-      const query = e.target.value.trim().toLowerCase();
-      if (query.length < 2) {
-        suggestionsBox.classList.add('hidden');
-        checkAndApplyReturningGuest(e.target.value);
-        return;
-      }
-
-      const matches = allGuests.filter(g => g.name.toLowerCase().includes(query));
-      if (matches.length === 0) {
-        suggestionsBox.classList.add('hidden');
-        checkAndApplyReturningGuest(e.target.value);
-        return;
-      }
-
-      suggestionsBox.innerHTML = matches.map(g => {
-        const gradient = getGuestGradient(g.name);
-        const initials = getInitials(g.name);
-        const guestStatus = g.attending === 'Yes' ? 'Attending' : (g.attending === 'No' ? 'Declined' : 'Pending');
-        const badgeClasses = g.attending === 'Yes'
-          ? 'bg-emerald-100 text-emerald-800 border-emerald-200'
-          : (g.attending === 'No'
-            ? 'bg-rose-100 text-rose-800 border-rose-200'
-            : 'bg-amber-100 text-amber-800 border-amber-200');
-
-        // data-name avoids breaking inline JS for names containing apostrophes
-        return `
-          <div class="p-3 text-sm hover:bg-stone-50 cursor-pointer flex justify-between items-center transition-colors" data-name="${escapeHtml(g.name)}" onclick="selectGuest(this.dataset.name)">
-            <div class="flex items-center space-x-2.5">
-              <div class="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold shadow-xs shrink-0" style="background: ${gradient.bg}; color: ${gradient.text}">
-                ${escapeHtml(initials)}
-              </div>
-              <div>
-                <span class="font-medium text-stone-800">${escapeHtml(g.name)}</span>
-                ${g.category && g.category !== 'Undecided' && g.attending === 'Yes' ? `<span class="block text-[11px] text-stone-400 font-normal">${escapeHtml(g.category)}</span>` : ''}
-              </div>
+          ${dishes.length > 0 ? `
+            <div class="space-y-1">
+              <p class="text-[11px] font-bold text-stone-400 uppercase tracking-wider">Claimed dishes:</p>
+              <ul class="text-xs space-y-1 pl-1 text-stone-700">
+                ${dishes.map(d => `
+                  <li class="flex justify-between py-0.5 border-b border-stone-150 last:border-none">
+                    <span class="font-medium text-stone-900">• ${escapeHtml(d.guest)}</span>
+                    <span class="text-stone-500 italic">${escapeHtml(d.dish || 'Dish')}</span>
+                  </li>
+                `).join('')}
+              </ul>
             </div>
-            <span class="text-xs font-semibold px-2 py-0.5 rounded-full border ${badgeClasses}">
-              ${guestStatus}
-            </span>
-          </div>
-        `;
-      }).join('');
-      suggestionsBox.classList.remove('hidden');
+          ` : `
+            <p class="text-xs text-stone-400 italic">No dishes claimed yet.</p>
+          `}
+        </div>
+      `;
+    }).join('');
+  }
 
-      checkAndApplyReturningGuest(e.target.value);
+  // Page Load & Data Fetching
+  window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get('guest');
+
+    // Google Calendar Link Setup
+    const title = encodeURIComponent("Friendsgiving Potluck");
+    const eventUrl = window.location.href;
+    const details = encodeURIComponent(`Bring a dish to share! Hosted by Nick + Kelsey.\n\nRSVP & Event Details:\n${eventUrl}`);
+    const location = encodeURIComponent("4034 Pompton Ct, Elgin, IL 60124");
+    document.getElementById('googleCalLink').href =
+      `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261121T220000Z/20261122T040000Z&details=${details}&location=${location}`;
+
+    // iCal (.ics) Link Setup
+    const icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Friendsgiving Potluck//EN',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      'SUMMARY:Friendsgiving Potluck',
+      'DESCRIPTION:Bring a dish to share! Hosted by Nick + Kelsey.\\n\\nRSVP & Event Details:\\n' + eventUrl,
+      'LOCATION:4034 Pompton Ct, Elgin, IL 60124',
+      'DTSTART:20261121T220000Z',
+      'DTEND:20261122T040000Z',
+      'STATUS:CONFIRMED',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n');
+
+    document.getElementById('appleCalLink').href =
+      'data:text/calendar;charset=utf-8,' + encodeURIComponent(icsContent);
+
+    fetchGuestList().then(() => {
+      if (guestName) {
+        const cleanName = decodeURIComponent(guestName);
+        document.getElementById('name').value = cleanName;
+        checkAndApplyReturningGuest(cleanName);
+      }
     });
+  });
 
-    function selectGuest(name) {
-      nameInput.value = name;
+  async function fetchGuestList() {
+    const container = document.getElementById('guestListContainer');
+    try {
+      const res = await fetch(`${APPS_SCRIPT_URL}?tabName=${encodeURIComponent(getEventTabName())}`);
+      const data = await res.json();
+      allGuests = Array.isArray(data.guests) ? data.guests : [];
+      allCategories = Array.isArray(data.categories) ? data.categories : [];
+    } catch (err) {
+      console.error('Fetch failed:', err);
+      container.innerHTML = '<p class="text-sm text-stone-400 text-center py-4">Unable to load guest list. <button type="button" onclick="fetchGuestList()" class="underline">Retry</button></p>';
+      document.getElementById('guestCountBadge').innerText = 'Unavailable';
+      document.getElementById('spreadTotalBadge').innerText = 'Unavailable';
+      return;
+    }
+
+    [
+      updateGuestCounts,
+      renderGuestList,
+      renderSpreadSection,
+      () => updateCategoryDropdown(true)
+    ].forEach(fn => {
+      try { fn(); } catch (e) { console.error('Render step failed:', e); }
+    });
+  }
+
+  function updateGuestCounts() {
+    document.getElementById('countYes').innerText = allGuests.filter(g => g.attending === 'Yes').length;
+    document.getElementById('countPending').innerText = allGuests.filter(g => g.attending === 'Pending').length;
+    document.getElementById('countNo').innerText = allGuests.filter(g => g.attending === 'No').length;
+    document.getElementById('guestCountBadge').innerText = `${allGuests.length} Invited`;
+  }
+
+  function switchGuestTab(status) {
+    currentTab = status;
+    const tabs = { 'Yes': 'tabAttending', 'Pending': 'tabPending', 'No': 'tabDeclined' };
+    Object.keys(tabs).forEach(key => {
+      document.getElementById(tabs[key]).className = key === status
+        ? "py-2.5 px-4 border-b-2 border-amber-600 text-amber-700 font-bold transition-colors"
+        : "py-2.5 px-4 border-b-2 border-transparent text-stone-500 hover:text-stone-800 transition-colors";
+    });
+    renderGuestList();
+  }
+
+  function renderGuestList() {
+    const container = document.getElementById('guestListContainer');
+    const filtered = allGuests.filter(g => g.attending === currentTab);
+    if (filtered.length === 0) {
+      container.innerHTML = `<p class="text-sm text-stone-400 italic text-center py-4">No guests currently in this list.</p>`;
+      return;
+    }
+
+    container.innerHTML = filtered.map(g => {
+      const gradient = getGuestGradient(g.name);
+      const initials = getInitials(g.name);
+      const guestStatus = g.attending === 'Yes' ? 'Attending' : (g.attending === 'No' ? 'Declined' : 'Pending');
+      const badgeClasses = g.attending === 'Yes'
+        ? 'bg-emerald-100 text-emerald-800 border-emerald-200'
+        : (g.attending === 'No'
+          ? 'bg-rose-100 text-rose-800 border-rose-200'
+          : 'bg-amber-100 text-amber-800 border-amber-200');
+
+      const catText = (g.category && g.category !== 'Undecided') ? g.category : '';
+      const dishText = g.dish || '';
+      const hasDishInfo = (catText || dishText) && g.attending === 'Yes';
+
+      return `
+        <div class="flex items-center justify-between p-3.5 bg-stone-50/90 rounded-xl border border-stone-200/70">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold shadow-xs shrink-0" style="background: ${gradient.bg}; color: ${gradient.text}">
+              ${escapeHtml(initials)}
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-stone-800">${escapeHtml(g.name)}</p>
+              ${hasDishInfo ? `
+                <p class="text-xs text-stone-500 font-medium">
+                  ${catText ? `<span class="text-amber-800 font-semibold">${escapeHtml(catText)}:</span> ` : ''}${escapeHtml(dishText)}
+                </p>
+              ` : ''}
+            </div>
+          </div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-full border ${badgeClasses}">
+            ${guestStatus}
+          </span>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Autocomplete & Pre-Populated / Returning Guest Logic
+  const nameInput = document.getElementById('name');
+  const suggestionsBox = document.getElementById('nameSuggestions');
+
+  nameInput.addEventListener('input', (e) => {
+    document.getElementById('statusMsg').classList.add('hidden');
+
+    const query = e.target.value.trim().toLowerCase();
+    if (query.length < 2) {
       suggestionsBox.classList.add('hidden');
-      checkAndApplyReturningGuest(name);
+      checkAndApplyReturningGuest(e.target.value);
+      return;
     }
 
-    function checkAndApplyReturningGuest(typedName) {
-      const submitBtnEl = document.getElementById('submitBtn');
-      const cleanName = typedName.trim().toLowerCase();
-      const matched = allGuests.find(g => g.name.toLowerCase() === cleanName);
+    const matches = allGuests.filter(g => g.name.toLowerCase().includes(query));
+    if (matches.length === 0) {
+      suggestionsBox.classList.add('hidden');
+      checkAndApplyReturningGuest(e.target.value);
+      return;
+    }
 
-      if (matched) {
-        if (activeReturningGuest !== matched.name) {
-          activeReturningGuest = matched.name;
+    suggestionsBox.innerHTML = matches.map(g => {
+      const gradient = getGuestGradient(g.name);
+      const initials = getInitials(g.name);
+      const guestStatus = g.attending === 'Yes' ? 'Attending' : (g.attending === 'No' ? 'Declined' : 'Pending');
+      const badgeClasses = g.attending === 'Yes'
+        ? 'bg-emerald-100 text-emerald-800 border-emerald-200'
+        : (g.attending === 'No'
+          ? 'bg-rose-100 text-rose-800 border-rose-200'
+          : 'bg-amber-100 text-amber-800 border-amber-200');
 
-          const hasSubmittedRSVP = matched.attending === 'Yes' || matched.attending === 'No';
+      return `
+        <div class="p-3 text-sm hover:bg-stone-50 cursor-pointer flex justify-between items-center transition-colors" data-name="${escapeHtml(g.name)}" onclick="selectGuest(this.dataset.name)">
+          <div class="flex items-center space-x-2.5">
+            <div class="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold shadow-xs shrink-0" style="background: ${gradient.bg}; color: ${gradient.text}">
+              ${escapeHtml(initials)}
+            </div>
+            <div>
+              <span class="font-medium text-stone-800">${escapeHtml(g.name)}</span>
+              ${g.category && g.category !== 'Undecided' && g.attending === 'Yes' ? `<span class="block text-[11px] text-stone-400 font-normal">${escapeHtml(g.category)}</span>` : ''}
+            </div>
+          </div>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded-full border ${badgeClasses}">
+            ${guestStatus}
+          </span>
+        </div>
+      `;
+    }).join('');
+    suggestionsBox.classList.remove('hidden');
 
-          currentGuestOriginalCategory = (matched.attending === 'Yes' && matched.category && matched.category !== 'Undecided') ? matched.category : null;
-          submitBtnEl.innerText = hasSubmittedRSVP ? 'Update Response' : 'Submit Response';
+    checkAndApplyReturningGuest(e.target.value);
+  });
 
-          const formEl = document.getElementById('rsvpForm');
-          if (matched.attending === 'Yes' || matched.attending === 'No' || matched.attending === 'Pending') {
-            formEl.elements['attending'].value = matched.attending;
-            onAttendanceChange(matched.attending);
-          }
+  function selectGuest(name) {
+    nameInput.value = name;
+    suggestionsBox.classList.add('hidden');
+    checkAndApplyReturningGuest(name);
+  }
 
-          updateCategoryDropdown(false);
+  function checkAndApplyReturningGuest(typedName) {
+    const submitBtnEl = document.getElementById('submitBtn');
+    const cleanName = typedName.trim().toLowerCase();
+    const matched = allGuests.find(g => g.name.toLowerCase() === cleanName);
 
-          if (matched.category) {
-            document.getElementById('categorySelect').value = matched.category;
-            renderCategoryPreview();
-            updateDishRequirement();
-          } else {
-            document.getElementById('categorySelect').value = 'Undecided';
-            updateDishRequirement();
-          }
+    if (matched) {
+      if (activeReturningGuest !== matched.name) {
+        activeReturningGuest = matched.name;
 
-          if (matched.dish) {
-            document.getElementById('specificDish').value = matched.dish;
-          }
-          if (matched.notes) {
-            document.getElementById('notes').value = matched.notes;
-          }
+        const hasSubmittedRSVP = matched.attending === 'Yes' || matched.attending === 'No';
 
-          renderSpreadSection();
+        currentGuestOriginalCategory = (matched.attending === 'Yes' && matched.category && matched.category !== 'Undecided') ? matched.category : null;
+        submitBtnEl.innerText = hasSubmittedRSVP ? 'Update Response' : 'Submit Response';
 
-          if (hasSubmittedRSVP) {
-            showToast(`Welcome back, ${matched.name}! Loaded your previous response.`);
-          }
+        const formEl = document.getElementById('rsvpForm');
+        if (matched.attending === 'Yes' || matched.attending === 'No' || matched.attending === 'Pending') {
+          formEl.elements['attending'].value = matched.attending;
+          onAttendanceChange(matched.attending);
         }
-      } else {
-        if (activeReturningGuest !== null) {
-          activeReturningGuest = null;
-          currentGuestOriginalCategory = null;
-          submitBtnEl.innerText = 'Submit Response';
 
-          const attendingRadios = document.querySelectorAll('input[name="attending"]');
-          attendingRadios.forEach(r => { r.checked = false; });
-          onAttendanceChange(null);
+        updateCategoryDropdown(false);
 
-          document.getElementById('categorySelect').value = 'Undecided';
-          document.getElementById('specificDish').value = '';
-          document.getElementById('notes').value = '';
-
-          updateCategoryDropdown(false);
+        if (matched.category) {
+          document.getElementById('categorySelect').value = matched.category;
           renderCategoryPreview();
           updateDishRequirement();
-          renderSpreadSection();
+        } else {
+          document.getElementById('categorySelect').value = 'Undecided';
+          updateDishRequirement();
+        }
+
+        if (matched.dish) {
+          document.getElementById('specificDish').value = matched.dish;
+        }
+        if (matched.notes) {
+          document.getElementById('notes').value = matched.notes;
+        }
+
+        renderSpreadSection();
+
+        if (hasSubmittedRSVP) {
+          showToast(`Welcome back, ${matched.name}! Loaded your previous response.`);
         }
       }
+    } else {
+      if (activeReturningGuest !== null) {
+        activeReturningGuest = null;
+        currentGuestOriginalCategory = null;
+        submitBtnEl.innerText = 'Submit Response';
+
+        const attendingRadios = document.querySelectorAll('input[name="attending"]');
+        attendingRadios.forEach(r => { r.checked = false; });
+        onAttendanceChange(null);
+
+        document.getElementById('categorySelect').value = 'Undecided';
+        document.getElementById('specificDish').value = '';
+        document.getElementById('notes').value = '';
+
+        updateCategoryDropdown(false);
+        renderCategoryPreview();
+        updateDishRequirement();
+        renderSpreadSection();
+      }
     }
+  }
 
-    document.addEventListener('click', (e) => {
-      if (!nameInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
-        suggestionsBox.classList.add('hidden');
-      }
-    });
+  document.addEventListener('click', (e) => {
+    if (!nameInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+      suggestionsBox.classList.add('hidden');
+    }
+  });
 
-    // Form Submission
-    const form = document.getElementById('rsvpForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const statusMsg = document.getElementById('statusMsg');
+  // Form Submission
+  const form = document.getElementById('rsvpForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const statusMsg = document.getElementById('statusMsg');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      submitBtn.disabled = true;
-      submitBtn.innerText = 'Submitting...';
-      statusMsg.classList.add('hidden');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'Submitting...';
+    statusMsg.classList.add('hidden');
 
-      const attendingVal = form.elements['attending'].value;
-      const categoryVal = attendingVal === 'Yes' ? document.getElementById('categorySelect').value : '';
-      const dishVal = attendingVal === 'Yes' ? document.getElementById('specificDish').value.trim() : '';
+    const attendingVal = form.elements['attending'].value;
+    const categoryVal = attendingVal === 'Yes' ? document.getElementById('categorySelect').value : '';
+    const dishVal = attendingVal === 'Yes' ? document.getElementById('specificDish').value.trim() : '';
 
-      const formData = {
-        tabName: getEventTabName(),
-        name: document.getElementById('name').value.trim(),
-        attending: attendingVal,
-        category: categoryVal,
-        dish: dishVal,
-        notes: document.getElementById('notes').value.trim()
-      };
+    const formData = {
+      tabName: getEventTabName(),
+      name: document.getElementById('name').value.trim(),
+      attending: attendingVal,
+      category: categoryVal,
+      dish: dishVal,
+      notes: document.getElementById('notes').value.trim()
+    };
 
-      const wasReturning = !!(currentGuestOriginalCategory || activeReturningGuest);
+    const wasReturning = !!(currentGuestOriginalCategory || activeReturningGuest);
 
-      try {
-        // text/plain keeps this a "simple" request (no CORS preflight); the body is still JSON
-        await fetch(APPS_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(formData)
-        });
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(formData)
+      });
 
-        statusMsg.className = 'mt-4 p-4 rounded-xl text-center text-sm font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200';
-        statusMsg.innerText = wasReturning
-          ? "Thank you! Your RSVP response has been successfully updated."
-          : "Thank you! Your RSVP has been recorded.";
-        statusMsg.classList.remove('hidden');
+      statusMsg.className = 'mt-4 p-4 rounded-xl text-center text-sm font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200';
+      statusMsg.innerText = wasReturning
+        ? "Thank you! Your RSVP response has been successfully updated."
+        : "Thank you! Your RSVP has been recorded.";
+      statusMsg.classList.remove('hidden');
 
-        activeReturningGuest = formData.name;
-        currentGuestOriginalCategory =
-          (attendingVal === 'Yes' && categoryVal && categoryVal !== 'Undecided') ? categoryVal : null;
-        submitBtn.innerText = 'Update Response';
+      activeReturningGuest = formData.name;
+      currentGuestOriginalCategory =
+        (attendingVal === 'Yes' && categoryVal && categoryVal !== 'Undecided') ? categoryVal : null;
+      submitBtn.innerText = 'Update Response';
 
-        await fetchGuestList();
-      } catch (err) {
-        console.error('Submit failed:', err);
-        statusMsg.className = 'mt-4 p-4 rounded-xl text-center text-sm font-semibold bg-rose-50 text-rose-800 border border-rose-200';
-        statusMsg.innerText = "An error occurred. Please try submitting again.";
-        statusMsg.classList.remove('hidden');
-        submitBtn.innerText = wasReturning ? 'Update Response' : 'Submit Response';
-      } finally {
-        submitBtn.disabled = false;
-      }
-    });
+      await fetchGuestList();
+    } catch (err) {
+      console.error('Submit failed:', err);
+      statusMsg.className = 'mt-4 p-4 rounded-xl text-center text-sm font-semibold bg-rose-50 text-rose-800 border border-rose-200';
+      statusMsg.innerText = "An error occurred. Please try submitting again.";
+      statusMsg.classList.remove('hidden');
+      submitBtn.innerText = wasReturning ? 'Update Response' : 'Submit Response';
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
   </script>
 </body>
 </html>
-   
