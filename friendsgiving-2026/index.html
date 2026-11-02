@@ -660,13 +660,41 @@
       }
     });
   });
-
+  
   async function fetchGuestList() {
     const container = document.getElementById('guestListContainer');
     try {
       const res = await fetch(`${APPS_SCRIPT_URL}?tabName=${encodeURIComponent(getEventTabName())}`);
       const data = await res.json();
       allGuests = Array.isArray(data.guests) ? data.guests : [];
+
+      // Sort guests: Nick & Kelsey first, then by Last Name
+      const priorityNames = ["nick ledonne", "kelsey johnson"];
+      allGuests.sort((a, b) => {
+        const nameA = a.name.trim().toLowerCase();
+        const nameB = b.name.trim().toLowerCase();
+
+        // 1. Check for priority names
+        const aIndex = priorityNames.indexOf(nameA);
+        const bIndex = priorityNames.indexOf(nameB);
+
+        if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
+        if (aIndex !== -1) return -1;
+        if (bIndex !== -1) return 1;
+
+        // 2. Sort by Last Name
+        const partsA = a.name.trim().split(/\s+/);
+        const partsB = b.name.trim().split(/\s+/);
+        const lastA = partsA[partsA.length - 1].toLowerCase();
+        const lastB = partsB[partsB.length - 1].toLowerCase();
+
+        if (lastA < lastB) return -1;
+        if (lastA > lastB) return 1;
+
+        // 3. Fallback to First Name if Last Names are identical
+        return nameA.localeCompare(nameB);
+      });
+
       allCategories = Array.isArray(data.categories) ? data.categories : [];
     } catch (err) {
       console.error('Fetch failed:', err);
