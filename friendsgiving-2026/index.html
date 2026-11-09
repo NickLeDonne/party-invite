@@ -654,6 +654,14 @@
     const appleCalLink = document.getElementById('appleCalLink');
     if (appleCalLink) {
       appleCalLink.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(icsContent);
+      
+      // Only set the download attribute on non-iOS devices so iPhones open Calendar directly
+      // while Mac/Windows browsers get a cleanly named "friendsgiving-2026.ics" file
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      if (!isIOS) {
+        appleCalLink.setAttribute('download', 'friendsgiving-2026.ics');
+      }
     }
 
     document.getElementById('appleCalLink').href =
