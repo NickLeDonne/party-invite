@@ -95,7 +95,7 @@
             <span>Add to Google Calendar</span>
           </a>
           <!-- Apple Calendar -->
-          <a id="appleCalLink" href="#" download="friendsgiving-2026.ics" class="group relative flex items-center justify-center space-x-2 w-full py-2.5 px-3 border border-stone-200 bg-white hover:bg-rose-50 hover:border-rose-200 hover:text-rose-700 text-stone-600 rounded-xl text-[11px] font-bold transition-all shadow-sm">
+           <a id="appleCalLink" href="#" class="group relative flex items-center justify-center space-x-2 w-full py-2.5 px-3 border border-stone-200 bg-white hover:bg-rose-50 hover:border-rose-200 hover:text-rose-700 text-stone-600 rounded-xl text-[11px] font-bold transition-all shadow-sm">
             <svg class="w-4 h-4 text-rose-500 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
             </svg>
@@ -631,7 +631,7 @@
     document.getElementById('googleCalLink').href =
       `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261121T220000Z/20261122T040000Z&details=${details}&location=${location}`;
 
-    // iCal (.ics) Link Setup
+    // iCal (.ics) Inline Setup — No external file required
     const icsContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
@@ -639,15 +639,22 @@
       'CALSCALE:GREGORIAN',
       'METHOD:PUBLISH',
       'BEGIN:VEVENT',
+      'UID:friendsgiving-2026@nickledonne.pages.dev',
+      'DTSTAMP:20261108T000000Z',
       'SUMMARY:Friendsgiving Potluck',
       'DESCRIPTION:Bring a dish to share! Hosted by Nick + Kelsey.\\n\\nRSVP & Event Details:\\n' + eventUrl,
-      'LOCATION:4034 Pompton Ct, Elgin, IL 60124',
+      'LOCATION:4034 Pompton Ct\\, Elgin\\, IL 60124',
       'DTSTART:20261121T220000Z',
       'DTEND:20261122T040000Z',
       'STATUS:CONFIRMED',
       'END:VEVENT',
       'END:VCALENDAR'
     ].join('\r\n');
+
+    const appleCalLink = document.getElementById('appleCalLink');
+    if (appleCalLink) {
+      appleCalLink.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(icsContent);
+    }
 
     document.getElementById('appleCalLink').href =
       'data:text/calendar;charset=utf-8,' + encodeURIComponent(icsContent);
